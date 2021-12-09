@@ -6,4 +6,5 @@ app_name = 'critters'
 
 urlpatterns = [
     path('', views.CritterView, name='home'),
+    
 ]

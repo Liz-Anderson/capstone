@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "*"
+django = "3.2"
 requests = "*"
 djangorestframework = "==3.12"
 
@@ -12,3 +12,4 @@ djangorestframework = "==3.12"
 
 [requires]
 python_version = "3.9"
+django = "3.2"

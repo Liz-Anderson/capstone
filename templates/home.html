@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <header>
+        <h1>Animal Crossing Critter Collector</h1>
+    </header>
+    <div>
+        <h2>Fish available: </h2>
+        <div v-for="fish in fish" :key="fish.id_num">
+            
+            <p>[[ fish.name ]]</p>
+            <img :src="fish.icon">
+            <hr>
+            
+        </div>
+    </div>
+
+
+
+
+{% endblock %}

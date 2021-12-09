@@ -29,25 +29,25 @@ class FishSerializer(serializers.ModelSerializer):
     time_info = NestedTimeSerializer(many=True, source='time_array')
     month_info = NestedMonthSerializer(many=True, source='month_array')
     class Meta:
-        fields = ('id_num', 'name', 'location', 'rarity', 'time_array', 'time_info', 'month_array', 'month_info', 'shadow_size', 'icon')
+        fields = ('id_num', 'name', 'location', 'rarity', 'time_info', 'month_info', 'shadow_size', 'icon')
         model = Fish
 
 class BugSerializer(serializers.ModelSerializer):
     time_info = NestedTimeSerializer(many=True, source='time_array')
     month_info = NestedMonthSerializer(many=True, source='month_array')
     class Meta:
-        fields = ('id_num', 'name', 'location', 'rarity', 'time_array', 'time_info', 'month_array', 'month_info', 'icon')
+        fields = ('id_num', 'name', 'location', 'rarity', 'time_info', 'month_info', 'icon')
         model = Bug
 
 class SeaCreatureSerializer(serializers.ModelSerializer):
     time_info = NestedTimeSerializer(many=True, source='time_array')
     month_info = NestedMonthSerializer(many=True, source='month_array')
     class Meta:
-        fields = ('id_num', 'name', 'time_array', 'time_info', 'month_array', 'month_info', 'shadow_size', 'speed', 'icon')
+        fields = ('id_num', 'name', 'time_info', 'month_info', 'shadow_size', 'speed', 'icon')
         model = SeaCreature
 
 
 class CustomUserSerializer (serializers.ModelSerializer):
     class Meta:
-        fields = ('caught', 'id', 'username')
+        fields = ('id', 'username', 'caught_fish', 'caught_bugs', 'caught_seacreatures')
         model = CustomUser
