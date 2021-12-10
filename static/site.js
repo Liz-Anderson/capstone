@@ -1,4 +1,44 @@
+Vue.component('fish-card', {
+    
+    props: ['fish'],
+    delimiters: ['[[', ']]'],
+    template: `
+    <div class="fish-card">
+                
+        <p>[[ fish.name ]]</p>
+        <img :src="fish.icon">
+                
+    </div>
+    `
+})
 
+Vue.component('bug-card', {
+    
+    props: ['bug'],
+    delimiters: ['[[', ']]'],
+    template: `
+    <div class="bug-card">
+                
+        <p>[[ bug.name ]]</p>
+        <img :src="bug.icon">
+                
+    </div>
+    `
+})
+
+Vue.component('sea-card', {
+    
+    props: ['sea'],
+    delimiters: ['[[', ']]'],
+    template: `
+    <div class="sea-card">
+                
+        <p>[[ sea.name ]]</p>
+        <img :src="sea.icon">
+                
+    </div>
+    `
+})
 
 
 const vm = new Vue({
@@ -8,7 +48,7 @@ const vm = new Vue({
         fish: {},
         bugs: {},
         seaCreatures: {},
-
+        clicked: "fish",
     },
     methods: {
         loadFish: function() {

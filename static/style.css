@@ -1,0 +1,49 @@
+body {
+    background-color: rgb(243, 237, 211);
+}
+
+header {
+    text-align: center;
+}
+
+.button-container {
+    margin: 10px 12px 0px 12px;
+}
+
+.fish-button, .bug-button, .sea-button {
+    width: 112px;
+    height: 75px;
+    /* padding: 10px 15px 10px 15px; */
+    /* margin: 10px 0px 0px 12px; */
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border: 2px solid black;
+    border-bottom: 0;
+}
+
+.fish-container, .bugs-container, .sea-container {
+    border: 2px solid black;
+    border-top: 0;
+    
+    margin: 0px 10px 10px 10px;
+    padding: 10px;
+}
+
+.fish-container, .fish-button {
+    background-color: rgb(174, 200, 221);
+}
+
+.bugs-container, .bug-button {
+    background-color: rgb(190, 207, 190);
+}
+
+.sea-container, .sea-button {
+    background-color: rgb(187, 221, 217);
+}
+
+.fish-card, .bug-card, .sea-card {
+    border: 2px solid black;
+    text-align: center;
+    /* width: 130px; */
+    margin: 10px;
+}

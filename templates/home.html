@@ -5,14 +5,41 @@
         <h1>Animal Crossing Critter Collector</h1>
     </header>
     <div>
-        <h2>Fish available: </h2>
-        <div v-for="fish in fish" :key="fish.id_num">
-            
-            <p>[[ fish.name ]]</p>
-            <img :src="fish.icon">
-            <hr>
+        <div class="button-container">
+            <button class="fish-button" @click="clicked = 'fish'">Fish</button>
+            <button class="bug-button" @click="clicked = 'bugs'">Bugs</button>
+            <button class="sea-button" @click="clicked = 'sea'">Sea Creatures</button>
+        </div>
+
+        <div class="fish-container" v-if="clicked === 'fish'">
+            <h2>Fish available: </h2>
+
+            <fish-card
+                v-for="fish in fish"
+                :fish="fish"
+            ></fish-card>
             
         </div>
+
+        <div class="bugs-container" v-else-if="clicked === 'bugs'">
+            <h2>Bugs available: </h2>
+
+            <bug-card
+                v-for="bug in bugs"
+                :bug="bug"
+            ></bug-card>
+           
+        </div>
+
+        <div class="sea-container" v-else-if="clicked === 'sea'">
+            <h2>Sea Creatures available: </h2>
+            <sea-card
+                v-for="sea in seaCreatures"
+                :sea="sea"
+            ></sea-card>
+
+        </div>
+
     </div>
 
 
