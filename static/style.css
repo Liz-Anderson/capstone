@@ -1,20 +1,45 @@
 body {
-    background-color: rgb(243, 237, 211);
+    /* background-color: rgb(243, 237, 211); */
+    background: url("https://pbs.twimg.com/media/EPngkecWAAAI16e.jpg");
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    
+}
+
+main {
+    
+    min-width: 100%;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(255, 255, 255, 0.7);
 }
 
 header {
     text-align: center;
 }
 
+h1 {
+    margin: 0;
+    padding: 1em;
+}
+
+.link-container {
+    padding-left: 2em;
+}
+
 .button-container {
-    margin: 10px 12px 0px 12px;
+    margin: 10px 10px 0px 10px;
+    top: 0;
+    position: sticky;
+    
 }
 
 .fish-button, .bug-button, .sea-button {
-    width: 112px;
+    width: 115.5px;
     height: 75px;
-    /* padding: 10px 15px 10px 15px; */
-    /* margin: 10px 0px 0px 12px; */
+    box-shadow: none;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     border: 2px solid black;
@@ -27,6 +52,7 @@ header {
     
     margin: 0px 10px 10px 10px;
     padding: 10px;
+    
 }
 
 .fish-container, .fish-button {
@@ -46,4 +72,17 @@ header {
     text-align: center;
     /* width: 130px; */
     margin: 10px;
+}
+
+/* .fish-icon, .bug-icon, .sea-icon {
+    text-align: center;
+    display: flex;
+} */
+
+.fish-card-expanded, .bug-card-expanded, .sea-card-expanded {
+    border: 2px solid black;
+    text-align: center;
+    /* width: 130px; */
+    margin: 10px;
+    background-color: violet;
 }

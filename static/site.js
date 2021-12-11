@@ -1,40 +1,90 @@
 Vue.component('fish-card', {
-    
+    data: function () {
+        return {
+            showMore: false
+        }
+    },
     props: ['fish'],
     delimiters: ['[[', ']]'],
     template: `
-    <div class="fish-card">
-                
-        <p>[[ fish.name ]]</p>
-        <img :src="fish.icon">
-                
+    <div v-bind:class="{
+        'fish-card': !showMore,
+        'fish-card-expanded': showMore,
+    }">
+        <div class="fish-icon">        
+            <p>[[ fish.name ]]</p>
+            <img :src="fish.icon">
+        </div>
+
+        <div v-if="showMore === true">
+
+            <p>I am the details!!!!</p>
+            <p>[[ fish.month_info[0] ]]</p>
+        </div>
+
+        <div class="show-more">
+
+            <p v-if="showMore === false" @click="showMore = true">Show more &or;</p>
+
+            <p v-if="showMore === true" @click="showMore = false">Show less ^</p>
+        </div>
     </div>
     `
 })
 
 Vue.component('bug-card', {
-    
+    data: function () {
+        return {
+            showMore: false
+        }
+    },
     props: ['bug'],
     delimiters: ['[[', ']]'],
     template: `
-    <div class="bug-card">
-                
-        <p>[[ bug.name ]]</p>
-        <img :src="bug.icon">
+    <div v-bind:class="{
+        'bug-card': !showMore,
+        'bug-card-expanded': showMore,
+    }">
+        <div class="bug-icon">        
+            <p>[[ bug.name ]]</p>
+            <img :src="bug.icon">
+        </div>
+        <div v-if="showMore === true">
+            <p>I am the details!!!!</p>
+        </div>
+        <div class="show-more">
+            <p v-if="showMore === false" @click="showMore = true">Show more &or;</p>
+            <p v-if="showMore === true" @click="showMore = false">Show less ^</p>
+        </div>
                 
     </div>
     `
 })
 
 Vue.component('sea-card', {
-    
+    data: function () {
+        return {
+            showMore: false
+        }
+    },
     props: ['sea'],
     delimiters: ['[[', ']]'],
     template: `
-    <div class="sea-card">
-                
-        <p>[[ sea.name ]]</p>
-        <img :src="sea.icon">
+    <div v-bind:class="{
+        'sea-card': !showMore,
+        'sea-card-expanded': showMore,
+    }">
+        <div class="sea-icon">        
+            <p>[[ sea.name ]]</p>
+            <img :src="sea.icon">
+        </div>
+        <div v-if="showMore === true">
+            <p>I am the details!!!!</p>
+        </div>
+        <div class="show-more">
+            <p v-if="showMore === false" @click="showMore = true">Show more &or;</p>
+            <p v-if="showMore === true" @click="showMore = false">Show less ^</p>
+        </div>
                 
     </div>
     `
