@@ -3,10 +3,22 @@
 {% block title %}Log In{% endblock %}
 
 {% block content %}
-<h2>Log In</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Log In</button>
-</form>
+<div class="login">
+    <h2>Log In</h2>
+    <form method="post">
+    {% csrf_token %}
+
+        <p>
+            <label for="id_username">Username:</label><br>
+            <input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username">
+        </p>
+        <p>
+            <label for="id_password">Password:</label><br>
+            <input type="password" name="password" autocomplete="current-password" required id="id_password">
+        </p>
+
+        <button class="login-btn" type="submit">Log In</button>
+    </form>
+    <p>Don't have an account yet? <a href="{% url 'signup' %}">Sign up</a> here</p>
+</div>
 {% endblock %}

@@ -1,5 +1,6 @@
 import requests
 from django.core.management.base import BaseCommand
+import re
 
 from critters.models import Fish, Bug, SeaCreature, Month, Time
 
@@ -34,17 +35,28 @@ class Command(BaseCommand):
                 new_fish.rarity = fish["availability"]["rarity"]
                 new_fish.shadow_size = fish["shadow"]
                 new_fish.icon = fish["icon_uri"]
+                new_fish.is_all_day = fish["availability"]["isAllDay"]
+                new_fish.is_all_year = fish["availability"]["isAllYear"]
                 new_fish.save()
 
                 for month in fish["availability"]["month-array-northern"]:
                     month_obj, _ = Month.objects.get_or_create(month_num=month, month_name=months_data[month - 1])
                     new_fish.month_array.add(month_obj)
 
+                
+                if new_fish.is_all_year == False and len(fish["availability"]["month-northern"]) > 2:
+                    month_span = re.split('-|&', fish["availability"]["month-northern"])
+                    
+                    print(month_span)
+                    new_fish.month_start.add(Month.objects.get(month_num=int(month_span[0])))
+                    new_fish.month_end.add(Month.objects.get(month_num=int(month_span[1])))
+                    
 
                 for time in fish["availability"]["time-array"]:
                     time_obj = Time.objects.get(hour=time)
                     new_fish.time_array.add(time_obj)
                 new_fish.save()
+                
                 
         
         def load_bugs():
@@ -57,12 +69,18 @@ class Command(BaseCommand):
                 new_bug.location = bug["availability"]["location"]
                 new_bug.rarity = bug["availability"]["rarity"]
                 new_bug.icon = bug["icon_uri"]
+                new_bug.is_all_day = bug["availability"]["isAllDay"]
+                new_bug.is_all_year = bug["availability"]["isAllYear"]
                 new_bug.save()
 
                 for month in bug["availability"]["month-array-northern"]:
                     month_obj, _ = Month.objects.get_or_create(month_num=month, month_name=months_data[month - 1])
                     new_bug.month_array.add(month_obj)
 
+                if new_bug.is_all_year == False and len(bug["availability"]["month-northern"]) > 2:
+                    month_span = re.split('-|&', bug["availability"]["month-northern"])
+                    new_bug.month_start.add(Month.objects.get(month_num=int(month_span[0])))
+                    new_bug.month_end.add(Month.objects.get(month_num=int(month_span[1])))
 
                 for time in bug["availability"]["time-array"]:
                     time_obj = Time.objects.get(hour=time)
@@ -81,11 +99,18 @@ class Command(BaseCommand):
                 new_sea_creature.shadow_size = sea["shadow"]
                 new_sea_creature.speed = sea["speed"]
                 new_sea_creature.icon = sea["icon_uri"]
+                new_sea_creature.is_all_day = sea["availability"]["isAllDay"]
+                new_sea_creature.is_all_year = sea["availability"]["isAllYear"]
                 new_sea_creature.save()
 
                 for month in sea["availability"]["month-array-northern"]:
                     month_obj, _ = Month.objects.get_or_create(month_num=month, month_name=months_data[month - 1])
                     new_sea_creature.month_array.add(month_obj)
+                
+                if new_sea_creature.is_all_year == False and len(sea["availability"]["month-northern"]) > 2:
+                    month_span = re.split('-|&', sea["availability"]["month-northern"])
+                    new_sea_creature.month_start.add(Month.objects.get(month_num=int(month_span[0])))
+                    new_sea_creature.month_end.add(Month.objects.get(month_num=int(month_span[1])))
 
 
                 for time in sea["availability"]["time-array"]:

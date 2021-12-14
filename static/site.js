@@ -19,7 +19,14 @@ Vue.component('fish-card', {
         <div v-if="showMore === true">
 
             <p>I am the details!!!!</p>
-            <p>[[ fish.month_info[0] ]]</p>
+
+            <p v-if="fish.is_all_day === true">Available all day</p>
+
+            <p v-else>[[ fish.time_info[0].hour_am_pm ]] through the [[ fish.time_info[fish.time_info.length - 1].hour_am_pm ]] hour</p>
+
+            <p v-if="fish.is_all_year">Available all year</p>
+
+            <p v-else>[[ fish.month_info[0].month_name ]] through the month of [[ fish.month_info[fish.month_info.length - 1].month_name ]]</p>
         </div>
 
         <div class="show-more">
@@ -51,6 +58,15 @@ Vue.component('bug-card', {
         </div>
         <div v-if="showMore === true">
             <p>I am the details!!!!</p>
+
+            <p v-if="bug.is_all_day === true">Available all day</p>
+
+            <p v-else>[[ bug.time_info[0].hour_am_pm ]] through the [[ bug.time_info[bug.time_info.length - 1].hour_am_pm ]] hour</p>
+
+            <p v-if="bug.is_all_year">Available all year</p>
+
+            <p v-else>[[ bug.month_info[0].month_name ]] through the month of [[ bug.month_info[bug.month_info.length - 1].month_name ]]</p>
+
         </div>
         <div class="show-more">
             <p v-if="showMore === false" @click="showMore = true">Show more &or;</p>
@@ -80,6 +96,14 @@ Vue.component('sea-card', {
         </div>
         <div v-if="showMore === true">
             <p>I am the details!!!!</p>
+
+            <p v-if="sea.is_all_day === true">Available all day</p>
+
+            <p v-else>[[ sea.time_info[0].hour_am_pm ]] through the [[ sea.time_info[sea.time_info.length - 1].hour_am_pm ]] hour</p>
+
+            <p v-if="sea.is_all_year">Available all year</p>
+
+            <p v-else>[[ sea.month_info[0].month_name ]] through the month of [[ sea.month_info[sea.month_info.length - 1].month_name ]]</p>
         </div>
         <div class="show-more">
             <p v-if="showMore === false" @click="showMore = true">Show more &or;</p>

@@ -1,9 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<header>
-    <h1>Animal Crossing Critter Collector</h1>
-</header>
+
 {% if user.is_authenticated %}
   Hi {{ user.username }}!
   <p><a href="{% url 'logout' %}">Log Out</a></p>
@@ -22,6 +20,9 @@
             <a href="#top"><button class="sea-button" @click="clicked = 'sea'">Sea Creatures</button></a>
 
         </div>
+        <!-- <div v-for="sea in seaCreatures">
+            [[ sea.month_info ]]
+        </div> -->
 
         <div class="fish-container" v-show="clicked === 'fish'">
             <h2>Fish available: </h2>

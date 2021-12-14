@@ -29,21 +29,21 @@ class FishSerializer(serializers.ModelSerializer):
     time_info = NestedTimeSerializer(many=True, source='time_array')
     month_info = NestedMonthSerializer(many=True, source='month_array')
     class Meta:
-        fields = ('id_num', 'name', 'location', 'rarity', 'time_info', 'month_info', 'shadow_size', 'icon')
+        fields = ('id_num', 'name', 'location', 'rarity', 'month_start', 'month_end', 'is_all_day', 'is_all_year', 'time_info', 'month_info', 'shadow_size', 'icon')
         model = Fish
 
 class BugSerializer(serializers.ModelSerializer):
     time_info = NestedTimeSerializer(many=True, source='time_array')
     month_info = NestedMonthSerializer(many=True, source='month_array')
     class Meta:
-        fields = ('id_num', 'name', 'location', 'rarity', 'time_info', 'month_info', 'icon')
+        fields = ('id_num', 'name', 'location', 'rarity', 'is_all_day', 'is_all_year', 'time_info', 'month_info', 'icon')
         model = Bug
 
 class SeaCreatureSerializer(serializers.ModelSerializer):
     time_info = NestedTimeSerializer(many=True, source='time_array')
     month_info = NestedMonthSerializer(many=True, source='month_array')
     class Meta:
-        fields = ('id_num', 'name', 'time_info', 'month_info', 'shadow_size', 'speed', 'icon')
+        fields = ('id_num', 'name', 'is_all_day', 'is_all_year', 'time_info', 'month_info', 'shadow_size', 'speed', 'icon')
         model = SeaCreature
 
 
