@@ -1,3 +1,4 @@
+from typing import KeysView
 import requests
 from django.core.management.base import BaseCommand
 import re
@@ -23,6 +24,21 @@ class Command(BaseCommand):
                 new_time.hour = i
                 new_time.hour_am_pm = time_data[i]
                 new_time.save()
+        
+        def change_span(month_span):
+            month_dict = {'1' : 'January', '2' : 'February', '3' : 'March', '4' : 'April', '5' : 'May', '6' : 'June', '7' : 'July', '8' : 'August', '9' : 'September', '10' : 'October', '11' : 'November', '12' : 'December'}
+            x = month_span.replace('-', ' - ').replace('&', ' & ').split(' ')
+            y = ""
+            for item in x:
+                try:
+                    z = month_dict[item]
+                except:
+                    z = item
+                y += z + ' '
+            print(y)
+            return y
+
+
 
         def load_fish():
             fish_response = requests.get("https://acnhapi.com/v1a/fish").json()
@@ -37,19 +53,12 @@ class Command(BaseCommand):
                 new_fish.icon = fish["icon_uri"]
                 new_fish.is_all_day = fish["availability"]["isAllDay"]
                 new_fish.is_all_year = fish["availability"]["isAllYear"]
+                new_fish.month_span = change_span(fish["availability"]["month-northern"])
                 new_fish.save()
 
                 for month in fish["availability"]["month-array-northern"]:
                     month_obj, _ = Month.objects.get_or_create(month_num=month, month_name=months_data[month - 1])
                     new_fish.month_array.add(month_obj)
-
-                
-                if new_fish.is_all_year == False and len(fish["availability"]["month-northern"]) > 2:
-                    month_span = re.split('-|&', fish["availability"]["month-northern"])
-                    
-                    print(month_span)
-                    new_fish.month_start.add(Month.objects.get(month_num=int(month_span[0])))
-                    new_fish.month_end.add(Month.objects.get(month_num=int(month_span[1])))
                     
 
                 for time in fish["availability"]["time-array"]:
@@ -71,16 +80,13 @@ class Command(BaseCommand):
                 new_bug.icon = bug["icon_uri"]
                 new_bug.is_all_day = bug["availability"]["isAllDay"]
                 new_bug.is_all_year = bug["availability"]["isAllYear"]
+                new_bug.month_span = change_span(bug["availability"]["month-northern"])
                 new_bug.save()
 
                 for month in bug["availability"]["month-array-northern"]:
                     month_obj, _ = Month.objects.get_or_create(month_num=month, month_name=months_data[month - 1])
                     new_bug.month_array.add(month_obj)
 
-                if new_bug.is_all_year == False and len(bug["availability"]["month-northern"]) > 2:
-                    month_span = re.split('-|&', bug["availability"]["month-northern"])
-                    new_bug.month_start.add(Month.objects.get(month_num=int(month_span[0])))
-                    new_bug.month_end.add(Month.objects.get(month_num=int(month_span[1])))
 
                 for time in bug["availability"]["time-array"]:
                     time_obj = Time.objects.get(hour=time)
@@ -101,16 +107,13 @@ class Command(BaseCommand):
                 new_sea_creature.icon = sea["icon_uri"]
                 new_sea_creature.is_all_day = sea["availability"]["isAllDay"]
                 new_sea_creature.is_all_year = sea["availability"]["isAllYear"]
+                new_sea_creature.month_span = change_span(sea["availability"]["month-northern"])
                 new_sea_creature.save()
 
                 for month in sea["availability"]["month-array-northern"]:
                     month_obj, _ = Month.objects.get_or_create(month_num=month, month_name=months_data[month - 1])
                     new_sea_creature.month_array.add(month_obj)
                 
-                if new_sea_creature.is_all_year == False and len(sea["availability"]["month-northern"]) > 2:
-                    month_span = re.split('-|&', sea["availability"]["month-northern"])
-                    new_sea_creature.month_start.add(Month.objects.get(month_num=int(month_span[0])))
-                    new_sea_creature.month_end.add(Month.objects.get(month_num=int(month_span[1])))
 
 
                 for time in sea["availability"]["time-array"]:

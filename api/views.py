@@ -28,3 +28,8 @@ class TimeViewSet(viewsets.ReadOnlyModelViewSet):
 class CustomUserViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
+
+class CurrentUserView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = CustomUserSerializer
+    def get_object(self):
+        return self.request.user

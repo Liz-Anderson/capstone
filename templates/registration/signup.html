@@ -5,6 +5,7 @@
 {% block content %}
 <div class="signup">
     <h2>Sign Up</h2>
+    <p>&emsp;Creating an account allows you to keep track of what critters you have caught and provides access to other useful hints to help you catch them all!</p>
     <form method="post">
     {% csrf_token %}
         <p>
@@ -17,19 +18,18 @@
             <label for="id_password1">Password:</label><br>
             <input type="password" name="password1" autocomplete="new-password" required id="id_password1"><br>
             <span class="helptext">
-            <ul>
-                <li>Your password can’t be too similar to your other personal information.</li>
-                <li>Your password must contain at least 8 characters.</li>
-                <li>Your password can’t be a commonly used password.</li>
-                <li>Your password can’t be entirely numeric.</li>
-            </ul>
+                <ul>
+                    <li>Your password can’t be too similar to your other personal information.</li>
+                    <li>Your password must contain at least 8 characters.</li>
+                    <li>Your password can’t be a commonly used password.</li>
+                    <li>Your password can’t be entirely numeric.</li>
+                </ul>
             </span>
         </p>
 
         <p>
-            <label for="id_password2">Password confirmation:</label><br>
-            <input type="password" name="password2" autocomplete="new-password" required id="id_password2"><br>
-            <span class="helptext">Enter the same password as before, for verification.</span>
+            <label for="id_password2">Confirm password:</label><br>
+            <input type="password" name="password2" autocomplete="new-password" required id="id_password2">
         </p>
 
         <button class="signup-btn" type="submit">Sign Up</button>

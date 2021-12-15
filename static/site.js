@@ -1,3 +1,6 @@
+
+// fish component
+
 Vue.component('fish-card', {
     data: function () {
         return {
@@ -26,7 +29,7 @@ Vue.component('fish-card', {
 
             <p v-if="fish.is_all_year">Available all year</p>
 
-            <p v-else>[[ fish.month_info[0].month_name ]] through the month of [[ fish.month_info[fish.month_info.length - 1].month_name ]]</p>
+            <p v-else>[[ fish.month_span ]]</p>
         </div>
 
         <div class="show-more">
@@ -38,6 +41,8 @@ Vue.component('fish-card', {
     </div>
     `
 })
+
+// bug component
 
 Vue.component('bug-card', {
     data: function () {
@@ -65,7 +70,7 @@ Vue.component('bug-card', {
 
             <p v-if="bug.is_all_year">Available all year</p>
 
-            <p v-else>[[ bug.month_info[0].month_name ]] through the month of [[ bug.month_info[bug.month_info.length - 1].month_name ]]</p>
+            <p v-else>[[ bug.month_span ]]</p>
 
         </div>
         <div class="show-more">
@@ -76,6 +81,8 @@ Vue.component('bug-card', {
     </div>
     `
 })
+
+// sea creature component
 
 Vue.component('sea-card', {
     data: function () {
@@ -94,6 +101,7 @@ Vue.component('sea-card', {
             <p>[[ sea.name ]]</p>
             <img :src="sea.icon">
         </div>
+        
         <div v-if="showMore === true">
             <p>I am the details!!!!</p>
 
@@ -103,8 +111,9 @@ Vue.component('sea-card', {
 
             <p v-if="sea.is_all_year">Available all year</p>
 
-            <p v-else>[[ sea.month_info[0].month_name ]] through the month of [[ sea.month_info[sea.month_info.length - 1].month_name ]]</p>
+            <p v-else>[[ sea.month_span ]]</p>
         </div>
+
         <div class="show-more">
             <p v-if="showMore === false" @click="showMore = true">Show more &or;</p>
             <p v-if="showMore === true" @click="showMore = false">Show less ^</p>
@@ -122,7 +131,17 @@ const vm = new Vue({
         fish: {},
         bugs: {},
         seaCreatures: {},
+        caughtFish: [],
+        uncaughtFish: [],
+        caughtBugs: [],
+        uncaughtBugs: [],
+        caughtSeaCreatures: [],
+        uncaughtSeaCreatures: [],
+        users: [],
+        currentUser: {},
+        csrf_token: "",
         clicked: "fish",
+        option: "all",
     },
     methods: {
         loadFish: function() {
@@ -148,11 +167,29 @@ const vm = new Vue({
             }).then(response => {
                 this.seaCreatures = response.data
             })
+        },
+        loadUsers: function() {
+            axios({
+                method: 'get',
+                url: '/api/v1/users/'
+            }).then(response => {
+                this.users = response.data
+            })
+        },
+        loadCurrentUser: function() {
+            axios({
+                method: 'get',
+                url: '/api/v1/currentuser/'
+            }).then(response => {
+                this.currentUser = response.data
+            })
         }
     },
     created: function() {
         this.loadFish()
         this.loadBugs()
         this.loadSeaCreatures()
+        this.loadUsers()
+        this.loadCurrentUser()
     }
 })

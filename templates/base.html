@@ -9,7 +9,8 @@
         <link rel="stylesheet" href="/static/style.css">
     </head>
     <body>
-        <main id="top">
+        {% csrf_token %}
+        <main>
             <div class="header">
                 <h1><a href="{% url 'home' %}">Animal Crossing Critter Collector</a></h1>
             </div>

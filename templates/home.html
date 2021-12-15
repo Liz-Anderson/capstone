@@ -3,29 +3,32 @@
 {% block content %}
 
 {% if user.is_authenticated %}
-  Hi {{ user.username }}!
-  <p><a href="{% url 'logout' %}">Log Out</a></p>
-{% else %}
     <div class="link-container">
-        <a href="{% url 'login' %}">Log In</a> |
-        <a href="{% url 'signup' %}">Sign Up</a>
+        <a href="">Hi {{ user.username }}!</a>  |
+        <a href="{% url 'logout' %}">Log Out</a>
     </div>
-    <div>
-        <div class="button-container">
 
-            <a href="#top"><button class="fish-button" @click="clicked = 'fish'">Fish</button></a>
+    <div class="option-container">
+        <button class="all-button" @click="option = 'all'">All</button>
+        <button class="caught-button" @click="option = 'caught'">Caught</button>
+        <button class="uncaught-button" @click="option = 'uncaught'">Uncaught</button>
+    </div>
 
-            <a href="#top"><button class="bug-button" @click="clicked = 'bugs'">Bugs</button></a>
+    <div class="button-container">
 
-            <a href="#top"><button class="sea-button" @click="clicked = 'sea'">Sea Creatures</button></a>
+        <a href="#fish-top"><button class="fish-button" @click="clicked = 'fish'">Fish</button></a>
 
-        </div>
-        <!-- <div v-for="sea in seaCreatures">
-            [[ sea.month_info ]]
-        </div> -->
+        <a href="#bug-top"><button class="bug-button" @click="clicked = 'bugs'">Bugs</button></a>
+
+        <a href="#sea-top"><button class="sea-button" @click="clicked = 'sea'">Sea Creatures</button></a>
+
+    </div>
+
+    <div v-show="option === 'all'">
+        <!-- -------fish---------- -->
 
         <div class="fish-container" v-show="clicked === 'fish'">
-            <h2>Fish available: </h2>
+            <h2 id="fish-top">Fish available: </h2>
 
             <fish-card
                 v-for="fish in fish"
@@ -35,8 +38,10 @@
             
         </div>
 
+        <!-- --------bugs---------- -->
+
         <div class="bugs-container" v-show="clicked === 'bugs'">
-            <h2>Bugs available: </h2>
+            <h2 id="bug-top">Bugs available: </h2>
 
             <bug-card
                 v-for="bug in bugs"
@@ -46,8 +51,77 @@
            
         </div>
 
+        <!-- --------sea creatures------ -->
+
         <div class="sea-container" v-show="clicked === 'sea'">
-            <h2>Sea Creatures available: </h2>
+            <h2 id="sea-top">Sea Creatures available: </h2>
+            <sea-card
+                v-for="sea in seaCreatures"
+                :key="sea.id_num"
+                :sea="sea"
+            ></sea-card>
+
+        </div>
+    </div>
+
+    <div v-show="option === 'caught'">
+        <p>caught critters</p>
+    </div>
+
+    <div v-show="option === 'uncaught'">
+        <p>Uncaught critters</p>
+    </div>
+
+
+{% else %}
+    <div class="link-container">
+        <a href="{% url 'login' %}">Log In</a> |
+        <a href="{% url 'signup' %}">Sign Up</a>
+    </div>
+
+    <!-- -------buttons------- -->
+
+    <div>
+        <div class="button-container">
+
+            <a href="#fish-top"><button class="fish-button" @click="clicked = 'fish'">Fish</button></a>
+
+            <a href="#bug-top"><button class="bug-button" @click="clicked = 'bugs'">Bugs</button></a>
+
+            <a href="#sea-top"><button class="sea-button" @click="clicked = 'sea'">Sea Creatures</button></a>
+
+        </div>
+
+        <!-- -------fish---------- -->
+
+        <div class="fish-container" v-show="clicked === 'fish'">
+            <h2 id="fish-top">Fish available: </h2>
+
+            <fish-card
+                v-for="fish in fish"
+                :key="fish.id_num"
+                :fish="fish"
+            ></fish-card>
+            
+        </div>
+
+        <!-- --------bugs---------- -->
+
+        <div class="bugs-container" v-show="clicked === 'bugs'">
+            <h2 id="bug-top">Bugs available: </h2>
+
+            <bug-card
+                v-for="bug in bugs"
+                :key="bug.id_num"
+                :bug="bug"
+            ></bug-card>
+           
+        </div>
+
+        <!-- --------sea creatures------ -->
+
+        <div class="sea-container" v-show="clicked === 'sea'">
+            <h2 id="sea-top">Sea Creatures available: </h2>
             <sea-card
                 v-for="sea in seaCreatures"
                 :key="sea.id_num"
