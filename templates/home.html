@@ -15,61 +15,147 @@
     </div>
 
     <div class="button-container">
-
         <a href="#fish-top"><button class="fish-button" @click="clicked = 'fish'">Fish</button></a>
-
         <a href="#bug-top"><button class="bug-button" @click="clicked = 'bugs'">Bugs</button></a>
-
         <a href="#sea-top"><button class="sea-button" @click="clicked = 'sea'">Sea Creatures</button></a>
-
     </div>
 
-    <div v-show="option === 'all'">
+    <div >
         <!-- -------fish---------- -->
 
         <div class="fish-container" v-show="clicked === 'fish'">
-            <h2 id="fish-top">Fish available: </h2>
+            <div v-if="option === 'all'">
+                <h2 id="fish-top">Fish available: </h2>
+                <fish-card
+                    v-for="fish in fish"
+                    :key="fish.id"
+                    :fish="fish"
+                    :current-user="currentUser"
+                    :csrf_token="csrf_token"
+                    @after-catch="loadCurrentUser"
+                ></fish-card>
+            </div>
 
-            <fish-card
-                v-for="fish in fish"
-                :key="fish.id_num"
-                :fish="fish"
-            ></fish-card>
+            <div v-if="option === 'caught'">
+
+                <div v-if="caughtFish.length > 0">
+                    <h2>Caught Fish:</h2>
+                    <fish-card
+                        v-for="fish in caughtFish"
+                        :key="fish.id"
+                        :fish="fish"
+                    ></fish-card>
+                </div>
+
+                <div v-else>
+                    <p>You haven't caught any fish yet</p>
+                </div>
+            </div>
+
+            <div v-if="option === 'uncaught'">
+
+                <div v-if="uncaughtFish.length === 0">
+                    <p>You caught all the fish. Congratulations!</p>
+                </div>
+
+                <div v-else>
+                    <h2>Uncaught Fish:</h2>
+                    <fish-card
+                        v-for="fish in uncaughtFish"
+                        :key="fish.id"
+                        :fish="fish"
+                    ></fish-card>
+                </div>
+            </div>
             
         </div>
 
         <!-- --------bugs---------- -->
 
         <div class="bugs-container" v-show="clicked === 'bugs'">
-            <h2 id="bug-top">Bugs available: </h2>
+            <div v-if="option === 'all'">
+                <h2 id="bug-top">Bugs available: </h2>
+                <bug-card
+                    v-for="bug in bugs"
+                    :key="bug.id_num"
+                    :bug="bug"
+                ></bug-card>
+            </div>
 
-            <bug-card
-                v-for="bug in bugs"
-                :key="bug.id_num"
-                :bug="bug"
-            ></bug-card>
+            <div v-if="option === 'caught'">
+                <div v-if="caughtBugs.length > 0">
+                    <h2>Caught Bugs:</h2>
+                    <bug-card
+                        v-for="bug in caughtBugs"
+                        :key="bug.id_num"
+                        :bug="bug"
+                    ></bug-card>
+                </div>
+
+                <div v-else>
+                    <p>You haven't caught any bugs</p>
+                </div>
+            </div>
+
+            <div v-if="option === 'uncaught'">
+                <div v-if="uncaughtBugs.length === 0">
+                    <p>You caught all the bugs. Congratulations!</p>
+                </div>
+
+                <div v-else>
+                    <h2>Uncaught Bugs:</h2>
+                    <bug-card
+                        v-for="bug in uncaughtBugs"
+                        :key="bug.id_num"
+                        :bug="bug"
+                    ></bug-card>
+                </div>
+            </div>
            
         </div>
 
         <!-- --------sea creatures------ -->
 
         <div class="sea-container" v-show="clicked === 'sea'">
-            <h2 id="sea-top">Sea Creatures available: </h2>
-            <sea-card
-                v-for="sea in seaCreatures"
-                :key="sea.id_num"
-                :sea="sea"
-            ></sea-card>
+            <div v-if="option === 'all'">
+                <h2 id="sea-top">Sea Creatures available: </h2>
+                <sea-card
+                    v-for="sea in seaCreatures"
+                    :key="sea.id_num"
+                    :sea="sea"
+                ></sea-card>
+            </div>
+
+            <div v-if="option === 'caught'">
+                <div v-if="caughtSeaCreatures.length > 0">
+                    <h2>Caught Sea Creatures:</h2>
+                    <sea-card
+                        v-for="sea in caughtSeaCreatures"
+                        :key="sea.id_num"
+                        :sea="sea"
+                    ></sea-card>
+                </div>
+
+                <div v-else>
+                    <p>You haven't caught any sea creatures</p>
+                </div>
+            </div>
+
+            <div v-if="option === 'uncaught'">
+                <div v-if="uncaughtSeaCreatures.length === 0">
+                    <p>You caught all the sea creatures. Congratulations!</p>
+                </div>
+                <div v-else>
+                    <h2>Uncaught Sea Creatures:</h2>
+                    <sea-card
+                        v-for="sea in uncaughtSeaCreatures"
+                        :key="sea.id_num"
+                        :sea="sea"
+                    ></sea-card>
+                </div>
+            </div>
 
         </div>
-    </div>
-
-    <div v-show="option === 'caught'">
-        <p>caught critters</p>
-    </div>
-
-    <div v-show="option === 'uncaught'">
-        <p>Uncaught critters</p>
     </div>
 
 
@@ -83,20 +169,15 @@
 
     <div>
         <div class="button-container">
-
             <a href="#fish-top"><button class="fish-button" @click="clicked = 'fish'">Fish</button></a>
-
             <a href="#bug-top"><button class="bug-button" @click="clicked = 'bugs'">Bugs</button></a>
-
             <a href="#sea-top"><button class="sea-button" @click="clicked = 'sea'">Sea Creatures</button></a>
-
         </div>
 
         <!-- -------fish---------- -->
 
         <div class="fish-container" v-show="clicked === 'fish'">
             <h2 id="fish-top">Fish available: </h2>
-
             <fish-card
                 v-for="fish in fish"
                 :key="fish.id_num"
@@ -109,7 +190,6 @@
 
         <div class="bugs-container" v-show="clicked === 'bugs'">
             <h2 id="bug-top">Bugs available: </h2>
-
             <bug-card
                 v-for="bug in bugs"
                 :key="bug.id_num"

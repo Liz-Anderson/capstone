@@ -1,5 +1,5 @@
 
-// fish component
+// ----------------- fish component --------------------
 
 Vue.component('fish-card', {
     data: function () {
@@ -7,7 +7,28 @@ Vue.component('fish-card', {
             showMore: false
         }
     },
-    props: ['fish'],
+    methods: {
+        catchUncatchFish: function(fish) {
+            if (!this.currentUser.caught_fish.includes(fish.id)) {
+                this.currentUser.caught_fish.push(fish.id)
+            } else {
+                this.currentUser.caught_fish.splice(this.currentUser.caught_fish.indexOf(fish.id), 1)
+            }
+            axios({
+                method: 'patch',
+                url: 'api/v1/currentuser/',
+                headers: {
+                    'X-CSRFToken': this.csrf_token
+                },
+                data: {
+                    'caught_fish' : this.currentUser.caught_fish
+                }
+            }).then(response => {
+                this.$emit("after-catch")
+            })
+        }
+    },
+    props: ['fish', 'currentUser', 'csrf_token'],
     delimiters: ['[[', ']]'],
     template: `
     <div v-bind:class="{
@@ -17,6 +38,9 @@ Vue.component('fish-card', {
         <div class="fish-icon">        
             <p>[[ fish.name ]]</p>
             <img :src="fish.icon">
+        </div>
+        <div v-if="currentUser.id">
+            <button @click="catchUncatchFish(fish)">[[ currentUser.caught_fish.includes(fish.id) ? "Uncatch" : "Catch" ]]</button>
         </div>
 
         <div v-if="showMore === true">
@@ -42,7 +66,7 @@ Vue.component('fish-card', {
     `
 })
 
-// bug component
+// --------------------- bug component ------------------
 
 Vue.component('bug-card', {
     data: function () {
@@ -82,7 +106,7 @@ Vue.component('bug-card', {
     `
 })
 
-// sea creature component
+// ------------ sea creature component -----------------
 
 Vue.component('sea-card', {
     data: function () {
@@ -123,20 +147,15 @@ Vue.component('sea-card', {
     `
 })
 
+// ---------------- vue instance -------------------
 
 const vm = new Vue({
     el: '#app',
     delimiters: ['[[', ']]'],
     data: {
-        fish: {},
-        bugs: {},
-        seaCreatures: {},
-        caughtFish: [],
-        uncaughtFish: [],
-        caughtBugs: [],
-        uncaughtBugs: [],
-        caughtSeaCreatures: [],
-        uncaughtSeaCreatures: [],
+        fish: [],
+        bugs: [],
+        seaCreatures: [],
         users: [],
         currentUser: {},
         csrf_token: "",
@@ -183,7 +202,8 @@ const vm = new Vue({
             }).then(response => {
                 this.currentUser = response.data
             })
-        }
+        },
+        
     },
     created: function() {
         this.loadFish()
@@ -191,5 +211,37 @@ const vm = new Vue({
         this.loadSeaCreatures()
         this.loadUsers()
         this.loadCurrentUser()
+    },
+    computed: {
+        caughtFish: function() {
+            return this.fish.filter(fish => {
+                return this.currentUser.caught_fish.includes(fish.id)
+            })
+        },
+        uncaughtFish: function() {
+            return this.fish.filter(fish => {
+                return !this.currentUser.caught_fish.includes(fish.id)
+            })
+        },
+        caughtBugs: function() {
+            return this.bugs.filter(bug => {
+                return this.currentUser.caught_bugs.includes(bug.id)
+            })
+        },
+        uncaughtBugs: function() {
+            return this.bugs.filter(bug => {
+                return !this.currentUser.caught_bugs.includes(bug.id)
+            })
+        },
+        caughtSeaCreatures: function() {
+            return this.seaCreatures.filter(sea => {
+                return this.currentUser.caught_seacreatures.includes(sea.id)
+            })
+        },
+        uncaughtSeaCreatures: function() {
+            return this.seaCreatures.filter(sea => {
+                return !this.currentUser.caught_seacreatures.includes(sea.id)
+            })
+        },
     }
 })
