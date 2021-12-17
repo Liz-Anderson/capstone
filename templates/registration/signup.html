@@ -10,7 +10,7 @@
     {% csrf_token %}
         <p>
             <label for="id_username">Username:</label> <br>
-            <input type="text" name="username" maxlength="150" autofocus required id="id_username"><br>
+            <input type="text" name="username" maxlength="150" autofocus required id="id_username" pattern=".{4,50}"><br>
             <span class="helptext">150 characters or fewer. Letters, digits and @/./+/-/_ only.</span>
         </p>
 

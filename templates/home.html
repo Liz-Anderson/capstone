@@ -37,13 +37,16 @@
             </div>
 
             <div v-if="option === 'caught'">
-
+                
                 <div v-if="caughtFish.length > 0">
-                    <h2>Caught Fish:</h2>
+                    <h2 id="fish-top">Caught Fish:</h2>
                     <fish-card
                         v-for="fish in caughtFish"
                         :key="fish.id"
                         :fish="fish"
+                        :current-user="currentUser"
+                        :csrf_token="csrf_token"
+                        @after-catch="loadCurrentUser"
                     ></fish-card>
                 </div>
 
@@ -59,11 +62,14 @@
                 </div>
 
                 <div v-else>
-                    <h2>Uncaught Fish:</h2>
+                    <h2 id="fish-top">Uncaught Fish:</h2>
                     <fish-card
                         v-for="fish in uncaughtFish"
                         :key="fish.id"
                         :fish="fish"
+                        :current-user="currentUser"
+                        :csrf_token="csrf_token"
+                        @after-catch="loadCurrentUser"
                     ></fish-card>
                 </div>
             </div>
@@ -77,18 +83,24 @@
                 <h2 id="bug-top">Bugs available: </h2>
                 <bug-card
                     v-for="bug in bugs"
-                    :key="bug.id_num"
+                    :key="bug.id"
                     :bug="bug"
+                    :current-user="currentUser"
+                    :csrf_token="csrf_token"
+                    @after-catch="loadCurrentUser"
                 ></bug-card>
             </div>
 
             <div v-if="option === 'caught'">
                 <div v-if="caughtBugs.length > 0">
-                    <h2>Caught Bugs:</h2>
+                    <h2 id="bug-top">Caught Bugs:</h2>
                     <bug-card
                         v-for="bug in caughtBugs"
-                        :key="bug.id_num"
+                        :key="bug.id"
                         :bug="bug"
+                        :current-user="currentUser"
+                        :csrf_token="csrf_token"
+                        @after-catch="loadCurrentUser"
                     ></bug-card>
                 </div>
 
@@ -103,11 +115,14 @@
                 </div>
 
                 <div v-else>
-                    <h2>Uncaught Bugs:</h2>
+                    <h2 id="bug-top">Uncaught Bugs:</h2>
                     <bug-card
                         v-for="bug in uncaughtBugs"
-                        :key="bug.id_num"
+                        :key="bug.id"
                         :bug="bug"
+                        :current-user="currentUser"
+                        :csrf_token="csrf_token"
+                        @after-catch="loadCurrentUser"
                     ></bug-card>
                 </div>
             </div>
@@ -121,18 +136,24 @@
                 <h2 id="sea-top">Sea Creatures available: </h2>
                 <sea-card
                     v-for="sea in seaCreatures"
-                    :key="sea.id_num"
+                    :key="sea.id"
                     :sea="sea"
+                    :current-user="currentUser"
+                    :csrf_token="csrf_token"
+                    @after-catch="loadCurrentUser"
                 ></sea-card>
             </div>
 
             <div v-if="option === 'caught'">
                 <div v-if="caughtSeaCreatures.length > 0">
-                    <h2>Caught Sea Creatures:</h2>
+                    <h2 id="sea-top">Caught Sea Creatures:</h2>
                     <sea-card
                         v-for="sea in caughtSeaCreatures"
-                        :key="sea.id_num"
+                        :key="sea.id"
                         :sea="sea"
+                        :current-user="currentUser"
+                        :csrf_token="csrf_token"
+                        @after-catch="loadCurrentUser"
                     ></sea-card>
                 </div>
 
@@ -146,11 +167,14 @@
                     <p>You caught all the sea creatures. Congratulations!</p>
                 </div>
                 <div v-else>
-                    <h2>Uncaught Sea Creatures:</h2>
+                    <h2 id="sea-top">Uncaught Sea Creatures:</h2>
                     <sea-card
                         v-for="sea in uncaughtSeaCreatures"
-                        :key="sea.id_num"
+                        :key="sea.id"
                         :sea="sea"
+                        :current-user="currentUser"
+                        :csrf_token="csrf_token"
+                        @after-catch="loadCurrentUser"
                     ></sea-card>
                 </div>
             </div>
@@ -182,6 +206,9 @@
                 v-for="fish in fish"
                 :key="fish.id_num"
                 :fish="fish"
+                :current-user="currentUser"
+                :csrf_token="csrf_token"
+                @after-catch="loadCurrentUser"
             ></fish-card>
             
         </div>
@@ -194,6 +221,9 @@
                 v-for="bug in bugs"
                 :key="bug.id_num"
                 :bug="bug"
+                :current-user="currentUser"
+                :csrf_token="csrf_token"
+                @after-catch="loadCurrentUser"
             ></bug-card>
            
         </div>
@@ -206,6 +236,9 @@
                 v-for="sea in seaCreatures"
                 :key="sea.id_num"
                 :sea="sea"
+                :current-user="currentUser"
+                :csrf_token="csrf_token"
+                @after-catch="loadCurrentUser"
             ></sea-card>
 
         </div>

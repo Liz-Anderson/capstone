@@ -1,14 +1,18 @@
-
+// -----------------------------------------------------
 // ----------------- fish component --------------------
-
+// -----------------------------------------------------
 Vue.component('fish-card', {
     data: function () {
         return {
-            showMore: false
+            showMore: false,
+            showHint: false
         }
     },
+    props: ['fish', 'currentUser', 'csrf_token'],
+    delimiters: ['[[', ']]'],
     methods: {
         catchUncatchFish: function(fish) {
+            console.log(this.csrf_token)
             if (!this.currentUser.caught_fish.includes(fish.id)) {
                 this.currentUser.caught_fish.push(fish.id)
             } else {
@@ -28,8 +32,7 @@ Vue.component('fish-card', {
             })
         }
     },
-    props: ['fish', 'currentUser', 'csrf_token'],
-    delimiters: ['[[', ']]'],
+    
     template: `
     <div v-bind:class="{
         'fish-card': !showMore,
@@ -54,6 +57,17 @@ Vue.component('fish-card', {
             <p v-if="fish.is_all_year">Available all year</p>
 
             <p v-else>[[ fish.month_span ]]</p>
+
+            <div class="show-hint" v-if="currentUser.id">
+                <p v-if="showHint === false" @click="showHint = true">Show hint &or;</p>
+
+                <p v-if="showHint === true" @click="showHint = false">Hide hint ^</p>
+            </div>
+            <div v-if="showHint === true">
+                <p>Location: [[ fish.location ]]</p>
+                <p>Rarity: [[ fish.rarity ]]</p>
+                <p>Shadow size: [[ fish.shadow_size ]]</p>
+            </div>
         </div>
 
         <div class="show-more">
@@ -63,19 +77,43 @@ Vue.component('fish-card', {
             <p v-if="showMore === true" @click="showMore = false">Show less ^</p>
         </div>
     </div>
-    `
+    `,
+    
 })
-
+// ------------------------------------------------------
 // --------------------- bug component ------------------
-
+// ------------------------------------------------------
 Vue.component('bug-card', {
     data: function () {
         return {
-            showMore: false
+            showMore: false,
+            showHint: false
         }
     },
-    props: ['bug'],
+    props: ['bug', 'currentUser', 'csrf_token'],
     delimiters: ['[[', ']]'],
+    methods: {
+        catchUncatchBug: function(bug) {
+            console.log(this.csrf_token)
+            if (!this.currentUser.caught_bugs.includes(bug.id)) {
+                this.currentUser.caught_bugs.push(bug.id)
+            } else {
+                this.currentUser.caught_bugs.splice(this.currentUser.caught_bugs.indexOf(bug.id), 1)
+            }
+            axios({
+                method: 'patch',
+                url: 'api/v1/currentuser/',
+                headers: {
+                    'X-CSRFToken': this.csrf_token
+                },
+                data: {
+                    'caught_bugs' : this.currentUser.caught_bugs
+                }
+            }).then(response => {
+                this.$emit("after-catch")
+            })
+        }
+    },
     template: `
     <div v-bind:class="{
         'bug-card': !showMore,
@@ -84,6 +122,9 @@ Vue.component('bug-card', {
         <div class="bug-icon">        
             <p>[[ bug.name ]]</p>
             <img :src="bug.icon">
+        </div>
+        <div v-if="currentUser.id">
+            <button @click="catchUncatchBug(bug)">[[ currentUser.caught_bugs.includes(bug.id) ? "Uncatch" : "Catch" ]]</button>
         </div>
         <div v-if="showMore === true">
             <p>I am the details!!!!</p>
@@ -96,6 +137,16 @@ Vue.component('bug-card', {
 
             <p v-else>[[ bug.month_span ]]</p>
 
+            <div class="show-hint" v-if="currentUser.id">
+                <p v-if="showHint === false" @click="showHint = true">Show hint &or;</p>
+
+                <p v-if="showHint === true" @click="showHint = false">Hide hint ^</p>
+            </div>
+            <div v-if="showHint === true">
+                <p>Location: [[ bug.location ]]</p>
+                <p>Rarity: [[ bug.rarity ]]</p>
+            </div>
+
         </div>
         <div class="show-more">
             <p v-if="showMore === false" @click="showMore = true">Show more &or;</p>
@@ -105,17 +156,40 @@ Vue.component('bug-card', {
     </div>
     `
 })
-
+// -----------------------------------------------------
 // ------------ sea creature component -----------------
-
+// -----------------------------------------------------
 Vue.component('sea-card', {
     data: function () {
         return {
-            showMore: false
+            showMore: false,
+            showHint: false
         }
     },
-    props: ['sea'],
+    props: ['sea', 'currentUser', 'csrf_token'],
     delimiters: ['[[', ']]'],
+    methods: {
+        catchUncatchSea: function(sea) {
+            console.log(this.csrf_token)
+            if (!this.currentUser.caught_seacreatures.includes(sea.id)) {
+                this.currentUser.caught_seacreatures.push(sea.id)
+            } else {
+                this.currentUser.caught_seacreatures.splice(this.currentUser.caught_seacreatures.indexOf(sea.id), 1)
+            }
+            axios({
+                method: 'patch',
+                url: 'api/v1/currentuser/',
+                headers: {
+                    'X-CSRFToken': this.csrf_token
+                },
+                data: {
+                    'caught_seacreatures' : this.currentUser.caught_seacreatures
+                }
+            }).then(response => {
+                this.$emit("after-catch")
+            })
+        }
+    },
     template: `
     <div v-bind:class="{
         'sea-card': !showMore,
@@ -124,6 +198,10 @@ Vue.component('sea-card', {
         <div class="sea-icon">        
             <p>[[ sea.name ]]</p>
             <img :src="sea.icon">
+        </div>
+
+        <div v-if="currentUser.id">
+            <button @click="catchUncatchSea(sea)">[[ currentUser.caught_seacreatures.includes(sea.id) ? "Uncatch" : "Catch" ]]</button>
         </div>
         
         <div v-if="showMore === true">
@@ -136,6 +214,16 @@ Vue.component('sea-card', {
             <p v-if="sea.is_all_year">Available all year</p>
 
             <p v-else>[[ sea.month_span ]]</p>
+
+            <div class="show-hint" v-if="currentUser.id">
+                <p v-if="showHint === false" @click="showHint = true">Show hint &or;</p>
+
+                <p v-if="showHint === true" @click="showHint = false">Hide hint ^</p>
+            </div>
+            <div v-if="showHint === true">
+                <p>Shadow size: [[ sea.shadow_size ]]</p>
+                <p>Speed: [[ sea.speed ]]</p>
+            </div>
         </div>
 
         <div class="show-more">
@@ -146,9 +234,9 @@ Vue.component('sea-card', {
     </div>
     `
 })
-
+// -------------------------------------------------
 // ---------------- vue instance -------------------
-
+// -------------------------------------------------
 const vm = new Vue({
     el: '#app',
     delimiters: ['[[', ']]'],
@@ -203,6 +291,63 @@ const vm = new Vue({
                 this.currentUser = response.data
             })
         },
+        availableNow: function(critter) {
+            let date = new Date()
+            let monthNow = date.getMonth()
+            let hourNow = date.getHours()
+            if (critter === 'fish'){
+                return this.fish.filter(fish => {
+                    if (this.uncaughtFish.includes(fish)){
+                        let fish_times = []
+                        for (object of fish.time_info){
+                            fish_times.push(object.hour)
+                        }
+                        let fish_months = []
+                        for (object of fish.month_info){
+                            fish_months.push(object.month_num)
+                        }
+                        if (fish_times.includes(hourNow) && fish_months.includes(monthNow + 1)) {
+                            return true
+                        }
+                    }
+                })
+            }
+            if (critter === 'bugs'){
+                return this.bugs.filter(bug => {
+                    if (this.uncaughtBugs.includes(bug)){
+                        let bugs_times = []
+                        for (object of bug.time_info){
+                            bugs_times.push(object.hour)
+                        }
+                        let bugs_months = []
+                        for (object of bug.month_info){
+                            bugs_months.push(object.month_num)
+                        }
+                        if (bugs_times.includes(hourNow) && bugs_months.includes(monthNow + 1)) {
+                            return true
+                        }
+                    }
+                })
+            }
+            if (critter === 'sea'){
+                return this.seaCreatures.filter(seaCreatures => {
+                    if (this.uncaughtSeaCreatures.includes(seaCreatures)){
+                        let seaCreatures_times = []
+                        for (object of seaCreatures.time_info){
+                            seaCreatures_times.push(object.hour)
+                        }
+                        let seaCreatures_months = []
+                        for (object of seaCreatures.month_info){
+                            seaCreatures_months.push(object.month_num)
+                        }
+                        if (seaCreatures_times.includes(hourNow) && seaCreatures_months.includes(monthNow + 1)) {
+                            return true
+                        }
+                    }
+                })
+            }
+            
+        }
         
     },
     created: function() {
@@ -211,6 +356,7 @@ const vm = new Vue({
         this.loadSeaCreatures()
         this.loadUsers()
         this.loadCurrentUser()
+        
     },
     computed: {
         caughtFish: function() {
@@ -243,5 +389,8 @@ const vm = new Vue({
                 return !this.currentUser.caught_seacreatures.includes(sea.id)
             })
         },
+    },
+    mounted: function() {
+        this.csrf_token = document.querySelector("input[name=csrfmiddlewaretoken]").value;
     }
 })
