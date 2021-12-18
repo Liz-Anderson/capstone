@@ -4,7 +4,8 @@
 
 {% if user.is_authenticated %}
     <div class="link-container">
-        <a href="">Hi {{ user.username }}!</a>  |
+        Hi {{ user.username }}!  |
+        <a href="{% url 'compare' %}">Compare with friends</a>  |
         <a href="{% url 'logout' %}">Log Out</a>
     </div>
 
@@ -12,6 +13,7 @@
         <button class="all-button" @click="option = 'all'">All</button>
         <button class="caught-button" @click="option = 'caught'">Caught</button>
         <button class="uncaught-button" @click="option = 'uncaught'">Uncaught</button>
+        <button class="now-btn" @click="availableNow(clicked),option = 'available'">Available Now</button>
     </div>
 
     <div class="button-container">
@@ -27,6 +29,7 @@
             <div v-if="option === 'all'">
                 <h2 id="fish-top">Fish available: </h2>
                 <fish-card
+                    v-bind:class="{caught: caughtFish.includes(fish)}"
                     v-for="fish in fish"
                     :key="fish.id"
                     :fish="fish"
@@ -36,11 +39,11 @@
                 ></fish-card>
             </div>
 
-            <div v-if="option === 'caught'">
-                
+            <div v-if="option === 'caught'"> 
                 <div v-if="caughtFish.length > 0">
                     <h2 id="fish-top">Caught Fish:</h2>
                     <fish-card
+                        class="caught"
                         v-for="fish in caughtFish"
                         :key="fish.id"
                         :fish="fish"
@@ -49,18 +52,15 @@
                         @after-catch="loadCurrentUser"
                     ></fish-card>
                 </div>
-
                 <div v-else>
                     <p>You haven't caught any fish yet</p>
                 </div>
             </div>
 
             <div v-if="option === 'uncaught'">
-
                 <div v-if="uncaughtFish.length === 0">
                     <p>You caught all the fish. Congratulations!</p>
                 </div>
-
                 <div v-else>
                     <h2 id="fish-top">Uncaught Fish:</h2>
                     <fish-card
@@ -73,7 +73,23 @@
                     ></fish-card>
                 </div>
             </div>
-            
+
+            <div v-if="option === 'available'">
+                <div v-if="catchNow.fish.length > 0">
+                    <h2 id="fish-top">Fish available to catch now:</h2>
+                    <fish-card
+                        v-for="fish in catchNow.fish"
+                        :key="fish.id"
+                        :fish="fish"
+                        :current-user="currentUser"
+                        :csrf_token="csrf_token"
+                        @after-catch="loadCurrentUser"
+                    ></fish-card>
+                </div>
+                <div v-else>
+                    <p>There are no uncaught fish available right now</p>
+                </div>
+            </div>
         </div>
 
         <!-- --------bugs---------- -->
@@ -82,6 +98,7 @@
             <div v-if="option === 'all'">
                 <h2 id="bug-top">Bugs available: </h2>
                 <bug-card
+                    v-bind:class="{caught: caughtBugs.includes(bug)}"
                     v-for="bug in bugs"
                     :key="bug.id"
                     :bug="bug"
@@ -95,6 +112,7 @@
                 <div v-if="caughtBugs.length > 0">
                     <h2 id="bug-top">Caught Bugs:</h2>
                     <bug-card
+                        class="caught"
                         v-for="bug in caughtBugs"
                         :key="bug.id"
                         :bug="bug"
@@ -103,7 +121,6 @@
                         @after-catch="loadCurrentUser"
                     ></bug-card>
                 </div>
-
                 <div v-else>
                     <p>You haven't caught any bugs</p>
                 </div>
@@ -113,7 +130,6 @@
                 <div v-if="uncaughtBugs.length === 0">
                     <p>You caught all the bugs. Congratulations!</p>
                 </div>
-
                 <div v-else>
                     <h2 id="bug-top">Uncaught Bugs:</h2>
                     <bug-card
@@ -126,7 +142,23 @@
                     ></bug-card>
                 </div>
             </div>
-           
+
+            <div v-if="option === 'available'">
+                <div v-if="catchNow.bugs.length > 0">
+                    <h2 id="bug-top">Bugs available to catch now:</h2>
+                    <bug-card
+                        v-for="bug in catchNow.bugs"
+                        :key="bug.id"
+                        :bug="bug"
+                        :current-user="currentUser"
+                        :csrf_token="csrf_token"
+                        @after-catch="loadCurrentUser"
+                    ></bug-card>
+                </div>
+                <div v-else>
+                    <p>There are no uncaught bugs available right now</p>
+                </div>
+            </div>
         </div>
 
         <!-- --------sea creatures------ -->
@@ -135,6 +167,7 @@
             <div v-if="option === 'all'">
                 <h2 id="sea-top">Sea Creatures available: </h2>
                 <sea-card
+                    v-bind:class="{caught: caughtSeaCreatures.includes(sea)}"
                     v-for="sea in seaCreatures"
                     :key="sea.id"
                     :sea="sea"
@@ -148,6 +181,7 @@
                 <div v-if="caughtSeaCreatures.length > 0">
                     <h2 id="sea-top">Caught Sea Creatures:</h2>
                     <sea-card
+                        class="caught"
                         v-for="sea in caughtSeaCreatures"
                         :key="sea.id"
                         :sea="sea"
@@ -156,7 +190,6 @@
                         @after-catch="loadCurrentUser"
                     ></sea-card>
                 </div>
-
                 <div v-else>
                     <p>You haven't caught any sea creatures</p>
                 </div>
@@ -179,6 +212,23 @@
                 </div>
             </div>
 
+            <div v-if="option === 'available'">
+                <div v-if="catchNow.sea.length > 0">
+                    <h2 id="sea-top">Sea Creatures available to catch now:</h2>
+                    <sea-card
+                        v-for="sea in catchNow.sea"
+                        :key="sea.id"
+                        :sea="sea"
+                        :current-user="currentUser"
+                        :csrf_token="csrf_token"
+                        @after-catch="loadCurrentUser"
+                    ></sea-card>
+                </div>
+
+                <div v-else>
+                    <p>There are no uncaught sea creatures available right now</p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -210,7 +260,6 @@
                 :csrf_token="csrf_token"
                 @after-catch="loadCurrentUser"
             ></fish-card>
-            
         </div>
 
         <!-- --------bugs---------- -->
@@ -225,7 +274,6 @@
                 :csrf_token="csrf_token"
                 @after-catch="loadCurrentUser"
             ></bug-card>
-           
         </div>
 
         <!-- --------sea creatures------ -->
@@ -240,12 +288,7 @@
                 :csrf_token="csrf_token"
                 @after-catch="loadCurrentUser"
             ></sea-card>
-
         </div>
-
     </div>
-
-
-
 {% endif %}
 {% endblock %}

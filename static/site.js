@@ -234,6 +234,36 @@ Vue.component('sea-card', {
     </div>
     `
 })
+Vue.component('friend-card', {
+    data: function() {
+        return {
+            friendInfo: {},
+            selectedId: "",
+        }
+    },
+    props: ['currentuser'],
+    delimiters: ['[[', ']]'],
+    methods: {
+        loadFriendInfo: function(friendId) {
+            axios({
+                method: 'get',
+                url: `http://127.0.0.1:8000/api/v1/users/${friendId}`
+            }).then(response => {
+                this.friendInfo = response.data
+            })
+        }
+    },
+    template: `
+    <div>
+        <select v-model="selectedId" @change="loadFriendInfo(selectedId)">
+            <option v-for="friend in currentuser.friends_details" :value="friend.id">[[ friend.username ]]</option>
+        </select>
+        <p>[[ friendInfo ]]</p>
+    </div>
+    `
+})
+
+
 // -------------------------------------------------
 // ---------------- vue instance -------------------
 // -------------------------------------------------
@@ -249,6 +279,11 @@ const vm = new Vue({
         csrf_token: "",
         clicked: "fish",
         option: "all",
+        catchNow: {
+            'fish' : [],
+            'bugs' : [],
+            'sea' : []
+        },
     },
     methods: {
         loadFish: function() {
@@ -291,64 +326,64 @@ const vm = new Vue({
                 this.currentUser = response.data
             })
         },
-        availableNow: function(critter) {
+        availableNow: function() {
             let date = new Date()
             let monthNow = date.getMonth()
             let hourNow = date.getHours()
-            if (critter === 'fish'){
-                return this.fish.filter(fish => {
-                    if (this.uncaughtFish.includes(fish)){
-                        let fish_times = []
-                        for (object of fish.time_info){
-                            fish_times.push(object.hour)
-                        }
-                        let fish_months = []
-                        for (object of fish.month_info){
-                            fish_months.push(object.month_num)
-                        }
-                        if (fish_times.includes(hourNow) && fish_months.includes(monthNow + 1)) {
-                            return true
-                        }
+
+            let catchNowFish = this.fish.filter(fish => {
+                if (this.uncaughtFish.includes(fish)){
+                    let fish_times = []
+                    for (object of fish.time_info){
+                        fish_times.push(object.hour)
                     }
-                })
-            }
-            if (critter === 'bugs'){
-                return this.bugs.filter(bug => {
-                    if (this.uncaughtBugs.includes(bug)){
-                        let bugs_times = []
-                        for (object of bug.time_info){
-                            bugs_times.push(object.hour)
-                        }
-                        let bugs_months = []
-                        for (object of bug.month_info){
-                            bugs_months.push(object.month_num)
-                        }
-                        if (bugs_times.includes(hourNow) && bugs_months.includes(monthNow + 1)) {
-                            return true
-                        }
+                    let fish_months = []
+                    for (object of fish.month_info){
+                        fish_months.push(object.month_num)
                     }
-                })
-            }
-            if (critter === 'sea'){
-                return this.seaCreatures.filter(seaCreatures => {
-                    if (this.uncaughtSeaCreatures.includes(seaCreatures)){
-                        let seaCreatures_times = []
-                        for (object of seaCreatures.time_info){
-                            seaCreatures_times.push(object.hour)
-                        }
-                        let seaCreatures_months = []
-                        for (object of seaCreatures.month_info){
-                            seaCreatures_months.push(object.month_num)
-                        }
-                        if (seaCreatures_times.includes(hourNow) && seaCreatures_months.includes(monthNow + 1)) {
-                            return true
-                        }
+                    if (fish_times.includes(hourNow) && fish_months.includes(monthNow + 1)) {
+                        return true
                     }
-                })
-            }
+                }
+            })
             
-        }
-        
+            let catchNowBugs = this.bugs.filter(bug => {
+                if (this.uncaughtBugs.includes(bug)){
+                    let bugs_times = []
+                    for (object of bug.time_info){
+                        bugs_times.push(object.hour)
+                    }
+                    let bugs_months = []
+                    for (object of bug.month_info){
+                        bugs_months.push(object.month_num)
+                    }
+                    if (bugs_times.includes(hourNow) && bugs_months.includes(monthNow + 1)) {
+                        return true
+                    }
+                }
+            })
+            
+            let catchNowSea = this.seaCreatures.filter(seaCreatures => {
+                if (this.uncaughtSeaCreatures.includes(seaCreatures)){
+                    let seaCreatures_times = []
+                    for (object of seaCreatures.time_info){
+                        seaCreatures_times.push(object.hour)
+                    }
+                    let seaCreatures_months = []
+                    for (object of seaCreatures.month_info){
+                        seaCreatures_months.push(object.month_num)
+                    }
+                    if (seaCreatures_times.includes(hourNow) && seaCreatures_months.includes(monthNow + 1)) {
+                        return true
+                    }
+                }
+            })
+            this.catchNow = {
+                'fish' : catchNowFish,
+                'bugs' : catchNowBugs,
+                'sea' : catchNowSea
+            }
+        } 
     },
     created: function() {
         this.loadFish()

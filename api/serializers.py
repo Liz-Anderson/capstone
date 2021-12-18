@@ -80,5 +80,5 @@ class CustomUserSerializer (serializers.ModelSerializer):
     outbound_friend_requests_details = NestedCustomUserSerializer(many=True, source='outbound_friend_requests', read_only=True)
     inbound_friend_requests_details = NestedCustomUserSerializer(many=True, source='inbound_friend_requests', read_only=True)
     class Meta:
-        fields = ('id', 'username', 'caught_fish', 'caught_bugs', 'caught_seacreatures', 'caught_fish_details', 'caught_bugs_details', 'caught_seacreatures_details', 'friends', 'friends_details', 'outbound_friend_requests_details', 'inbound_friend_requests_details')
+        fields = ('id', 'username', 'caught_fish', 'caught_bugs', 'caught_seacreatures', 'caught_fish_details', 'caught_bugs_details', 'caught_seacreatures_details', 'friends', 'outbound_friend_requests', 'friends_details', 'outbound_friend_requests_details', 'inbound_friend_requests_details')
         model = CustomUser
