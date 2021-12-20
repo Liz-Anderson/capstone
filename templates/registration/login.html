@@ -1,24 +1,24 @@
 {% extends 'base.html' %}
 
-{% block title %}Log In{% endblock %}
+{% block title %}log in{% endblock %}
 
 {% block content %}
 <div class="login">
-    <h2>Log In</h2>
+    <h2>log in</h2>
     <form method="post">
     {% csrf_token %}
 
         <p>
-            <label for="id_username">Username:</label><br>
+            <label for="id_username">username:</label><br>
             <input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username">
         </p>
         <p>
-            <label for="id_password">Password:</label><br>
+            <label for="id_password">password:</label><br>
             <input type="password" name="password" autocomplete="current-password" required id="id_password">
         </p>
 
-        <button class="login-btn" type="submit">Log In</button>
+        <button class="login-btn" type="submit">log in</button>
     </form>
-    <p>Don't have an account yet? <a href="{% url 'signup' %}">Sign up</a> here</p>
+    <p>don't have an account yet? <a href="{% url 'signup' %}">sign up</a> here</p>
 </div>
 {% endblock %}

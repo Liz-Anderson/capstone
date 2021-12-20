@@ -4,9 +4,9 @@
 
 {% if user.is_authenticated %}
 <div class="link-container">
-    Hi {{ user.username }}!  |
-    <a href="{% url 'home' %}">Home</a>  |
-    <a href="{% url 'logout' %}">Log Out</a>
+    hi {{ user.username }}!  &#8226;
+    <a href="{% url 'home' %}">home</a>  &#8226;
+    <a href="{% url 'logout' %}">log out</a>
 </div>
 <friend-card
     v-if="currentUser"
@@ -14,6 +14,6 @@
 ></friend-card>
 
 {% else %}
-<a href="{% url 'login' %}">Log in</a> or <a href="{% url 'signup' %}">Sign up</a>
+<a href="{% url 'login' %}">log in</a> or <a href="{% url 'signup' %}">sign up</a>
 {% endif %}
 {% endblock %}

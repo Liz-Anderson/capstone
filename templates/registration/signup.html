@@ -1,40 +1,40 @@
 {% extends 'base.html' %}
 
-{% block title %}Sign Up{% endblock %}
+{% block title %}sign up{% endblock %}
 
 {% block content %}
 <div class="signup">
-    <h2>Sign Up</h2>
-    <p>&emsp;Creating an account allows you to keep track of what critters you have caught and provides access to other useful hints to help you catch them all!</p>
+    <h2>sign up</h2>
+    <p>&emsp;creating an account allows you to keep track of what critters you have caught and provides access to other useful hints to help you catch them all!</p>
     <form method="post">
     {% csrf_token %}
         <p>
-            <label for="id_username">Username:</label> <br>
+            <label for="id_username">username:</label> <br>
             <input type="text" name="username" maxlength="150" autofocus required id="id_username" pattern=".{4,50}"><br>
-            <span class="helptext">150 characters or fewer. Letters, digits and @/./+/-/_ only.</span>
+            <span class="helptext">150 characters or fewer. letters, digits and @/./+/-/_ only.</span>
         </p>
 
         <p>
-            <label for="id_password1">Password:</label><br>
+            <label for="id_password1">password:</label><br>
             <input type="password" name="password1" autocomplete="new-password" required id="id_password1"><br>
             <span class="helptext">
                 <ul>
-                    <li>Your password can’t be too similar to your other personal information.</li>
-                    <li>Your password must contain at least 8 characters.</li>
-                    <li>Your password can’t be a commonly used password.</li>
-                    <li>Your password can’t be entirely numeric.</li>
+                    <li>your password can’t be too similar to your other personal information.</li>
+                    <li>your password must contain at least 8 characters.</li>
+                    <li>your password can’t be a commonly used password.</li>
+                    <li>your password can’t be entirely numeric.</li>
                 </ul>
             </span>
         </p>
 
         <p>
-            <label for="id_password2">Confirm password:</label><br>
+            <label for="id_password2">confirm password:</label><br>
             <input type="password" name="password2" autocomplete="new-password" required id="id_password2">
         </p>
 
-        <button class="signup-btn" type="submit">Sign Up</button>
+        <button class="signup-btn" type="submit">sign up</button>
     </form>
 
-    <p>Already have an account? <a href="{% url 'login' %}">Log in</a> here</p>
+    <p>already have an account? <a href="{% url 'login' %}">log in</a> here</p>
 </div>
 {% endblock %}

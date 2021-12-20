@@ -34,47 +34,41 @@ Vue.component('fish-card', {
     },
     
     template: `
-    <div v-bind:class="{
-        'fish-card': !showMore,
-        'fish-card-expanded': showMore,
-    }">
-        <div class="fish-icon">        
+    <div class="fish-card">
+        <div class="fish-icon">  
+            <img :src="fish.icon">    
+            <p v-if="currentUser.id">
+                <button class="catch-btn" @click="catchUncatchFish(fish)">[[ currentUser.caught_fish.includes(fish.id) ? "uncatch" : "catch" ]]</button>
+            </p>
+        </div>
+        <div class="fish-2">
             <p>[[ fish.name ]]</p>
-            <img :src="fish.icon">
-        </div>
-        <div v-if="currentUser.id">
-            <button @click="catchUncatchFish(fish)">[[ currentUser.caught_fish.includes(fish.id) ? "Uncatch" : "Catch" ]]</button>
-        </div>
+            <div class="show-more">
 
-        <div v-if="showMore === true">
+                <p v-if="showMore === false" @click="showMore = true, showHint = false">availablilty &or;</p>
 
-            <p>I am the details!!!!</p>
+                <p v-if="showMore === true" @click="showMore = false">availability ^</p>
+            </div>
 
-            <p v-if="fish.is_all_day === true">Available all day</p>
+            <div v-if="showMore === true">
+                <p v-if="fish.is_all_day === true">time: available all day</p>
 
-            <p v-else>[[ fish.time_info[0].hour_am_pm ]] through the [[ fish.time_info[fish.time_info.length - 1].hour_am_pm ]] hour</p>
+                <p v-else>time: [[ fish.time_info[0].hour_am_pm ]] through the [[ fish.time_info[fish.time_info.length - 1].hour_am_pm ]] hour</p>
 
-            <p v-if="fish.is_all_year">Available all year</p>
+                <p v-if="fish.is_all_year">season: available all year</p>
 
-            <p v-else>[[ fish.month_span ]]</p>
-
+                <p v-else>season: [[ fish.month_span ]]</p>
+            </div>
             <div class="show-hint" v-if="currentUser.id">
-                <p v-if="showHint === false" @click="showHint = true">Show hint &or;</p>
+                <p v-if="showHint === false" @click="showHint = true, showMore = false">hints &or;</p>
 
-                <p v-if="showHint === true" @click="showHint = false">Hide hint ^</p>
+                <p v-if="showHint === true" @click="showHint = false">hints ^</p>
             </div>
             <div v-if="showHint === true">
-                <p>Location: [[ fish.location ]]</p>
-                <p>Rarity: [[ fish.rarity ]]</p>
-                <p>Shadow size: [[ fish.shadow_size ]]</p>
+                <p>location: [[ fish.location ]]</p>
+                <p>rarity: [[ fish.rarity ]]</p>
+                <p>shadow size: [[ fish.shadow_size ]]</p>
             </div>
-        </div>
-
-        <div class="show-more">
-
-            <p v-if="showMore === false" @click="showMore = true">Show more &or;</p>
-
-            <p v-if="showMore === true" @click="showMore = false">Show less ^</p>
         </div>
     </div>
     `,
@@ -115,42 +109,38 @@ Vue.component('bug-card', {
         }
     },
     template: `
-    <div v-bind:class="{
-        'bug-card': !showMore,
-        'bug-card-expanded': showMore,
-    }">
+    <div class="bug-card">
         <div class="bug-icon">        
-            <p>[[ bug.name ]]</p>
             <img :src="bug.icon">
+            <div v-if="currentUser.id">
+                <button class="catch-btn" @click="catchUncatchBug(bug)">[[ currentUser.caught_bugs.includes(bug.id) ? "uncatch" : "catch" ]]</button>
+            </div>
         </div>
-        <div v-if="currentUser.id">
-            <button @click="catchUncatchBug(bug)">[[ currentUser.caught_bugs.includes(bug.id) ? "Uncatch" : "Catch" ]]</button>
-        </div>
-        <div v-if="showMore === true">
-            <p>I am the details!!!!</p>
+        <div class="bug-2">
+            <p>[[ bug.name ]]</p>
+            <div class="show-more">
+                <p v-if="showMore === false" @click="showMore = true">show more &or;</p>
+                <p v-if="showMore === true" @click="showMore = false">show less ^</p>
+            </div>
+            <div v-if="showMore === true">
+                <p v-if="bug.is_all_day === true">time: available all day</p>
 
-            <p v-if="bug.is_all_day === true">Available all day</p>
+                <p v-else>time: [[ bug.time_info[0].hour_am_pm ]] through the [[ bug.time_info[bug.time_info.length - 1].hour_am_pm ]] hour</p>
 
-            <p v-else>[[ bug.time_info[0].hour_am_pm ]] through the [[ bug.time_info[bug.time_info.length - 1].hour_am_pm ]] hour</p>
+                <p v-if="bug.is_all_year">season: vailable all year</p>
 
-            <p v-if="bug.is_all_year">Available all year</p>
+                <p v-else>season: [[ bug.month_span ]]</p>
 
-            <p v-else>[[ bug.month_span ]]</p>
-
+            </div>
             <div class="show-hint" v-if="currentUser.id">
-                <p v-if="showHint === false" @click="showHint = true">Show hint &or;</p>
+                <p v-if="showHint === false" @click="showHint = true">show hint &or;</p>
 
-                <p v-if="showHint === true" @click="showHint = false">Hide hint ^</p>
+                <p v-if="showHint === true" @click="showHint = false">hide hint ^</p>
             </div>
             <div v-if="showHint === true">
-                <p>Location: [[ bug.location ]]</p>
-                <p>Rarity: [[ bug.rarity ]]</p>
+                <p>location: [[ bug.location ]]</p>
+                <p>rarity: [[ bug.rarity ]]</p>
             </div>
-
-        </div>
-        <div class="show-more">
-            <p v-if="showMore === false" @click="showMore = true">Show more &or;</p>
-            <p v-if="showMore === true" @click="showMore = false">Show less ^</p>
         </div>
                 
     </div>
@@ -191,48 +181,43 @@ Vue.component('sea-card', {
         }
     },
     template: `
-    <div v-bind:class="{
-        'sea-card': !showMore,
-        'sea-card-expanded': showMore,
-    }">
-        <div class="sea-icon">        
+    <div class="sea-card">
+        <div class="sea-icon">  
+            <img :src="sea.icon"> 
+            <p v-if="currentUser.id">
+                <button class="catch-btn" @click="catchUncatchSea(sea)">[[ currentUser.caught_seacreatures.includes(sea.id) ? "uncatch" : "catch" ]]</button>
+            </p>        
+        </div>
+        <div class="sea-2">
             <p>[[ sea.name ]]</p>
-            <img :src="sea.icon">
-        </div>
+            <div class="show-more">
 
-        <div v-if="currentUser.id">
-            <button @click="catchUncatchSea(sea)">[[ currentUser.caught_seacreatures.includes(sea.id) ? "Uncatch" : "Catch" ]]</button>
-        </div>
-        
-        <div v-if="showMore === true">
-            <p>I am the details!!!!</p>
+                <p v-if="showMore === false" @click="showMore = true, showHint = false">availability &or;</p>
 
-            <p v-if="sea.is_all_day === true">Available all day</p>
+                <p v-if="showMore === true" @click="showMore = false">availability ^</p>
+            </div>
+            
+            <div v-if="showMore === true">
+                <p v-if="sea.is_all_day === true">time: available all day</p>
 
-            <p v-else>[[ sea.time_info[0].hour_am_pm ]] through the [[ sea.time_info[sea.time_info.length - 1].hour_am_pm ]] hour</p>
+                <p v-else>time: [[ sea.time_info[0].hour_am_pm ]] through the [[ sea.time_info[sea.time_info.length - 1].hour_am_pm ]] hour</p>
 
-            <p v-if="sea.is_all_year">Available all year</p>
+                <p v-if="sea.is_all_year">season: available all year</p>
 
-            <p v-else>[[ sea.month_span ]]</p>
-
+                <p v-else>season: [[ sea.month_span ]]</p>
+            </div>
             <div class="show-hint" v-if="currentUser.id">
-                <p v-if="showHint === false" @click="showHint = true">Show hint &or;</p>
+                <p v-if="showHint === false" @click="showHint = true, showMore = false">hints &or;</p>
 
-                <p v-if="showHint === true" @click="showHint = false">Hide hint ^</p>
+                <p v-if="showHint === true" @click="showHint = false">hints ^</p>
             </div>
             <div v-if="showHint === true">
-                <p>Shadow size: [[ sea.shadow_size ]]</p>
-                <p>Speed: [[ sea.speed ]]</p>
+                <p>shadow size: [[ sea.shadow_size ]]</p>
+                <p>speed: [[ sea.speed ]]</p>
             </div>
         </div>
-
-        <div class="show-more">
-            <p v-if="showMore === false" @click="showMore = true">Show more &or;</p>
-            <p v-if="showMore === true" @click="showMore = false">Show less ^</p>
-        </div>
-                
     </div>
-    `
+    `,
 })
 Vue.component('friend-card', {
     data: function() {

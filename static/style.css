@@ -1,4 +1,6 @@
-
+/* font-family: 'Comfortaa', cursive;
+font-family: 'Ribeye', cursive;
+font-family: 'Ribeye Marrow', cursive; */
 /* --------mobile------------- */
 
 body {
@@ -7,7 +9,7 @@ body {
     padding: 0;
     margin: 0;
     min-height: 100vh;
-    
+    font-family: 'Comfortaa', Arial, sans-serif;
 }
 
 main {
@@ -20,12 +22,19 @@ main {
 }
 
 h1 {
+    font-family: 'Ribeye', Arial, sans-serif;
     margin: 0;
     padding: 1em;
+    
+}
+h2 {
+    text-align: center;
 }
 
-a {
+h1 a {
     text-decoration: none;
+    color: rgb(58, 116, 111);
+    /* -webkit-text-stroke: .1px rgb(250, 250, 250); */
 }
 label {
     font-size: 20px;
@@ -34,7 +43,13 @@ label {
 ul, .helptext {
     color: rgb(150, 147, 147);
 }
+img {
+    height: 70px;
+}
 
+.link-container {
+    text-align: center;
+}
 
 .header {
     text-align: center;
@@ -45,6 +60,7 @@ ul, .helptext {
 }
 
 .button-container {
+    display: flex;
     margin: 10px 10px 0px 10px;
     top: 0;
     position: sticky;
@@ -52,24 +68,22 @@ ul, .helptext {
 }
 
 .fish-button, .bug-button, .sea-button {
-    width: 115.5px;
+    min-width: 115.5px;
     height: 60px;
     box-shadow: none;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
-    border: 2px solid black;
-    border-bottom: 0;
+    border: none;
     font-size: 20px;
 }
 
 .fish-container, .bugs-container, .sea-container {
-    border: 2px solid black;
-    border-top: 0;
-    
     margin: 0px 10px 0px 10px;
     padding: 10px;
-    height: 490px;
+    height: 387px;
+    /* height: 100vh; */
     overflow: scroll;
+
     
 }
 
@@ -78,41 +92,36 @@ ul, .helptext {
 }
 
 .fish-container, .fish-button {
-    background-color: rgb(174, 200, 221);
+    background-color: rgb(192, 222, 248);
 }
 
 .bugs-container, .bug-button {
-    background-color: rgb(190, 207, 190);
+    background-color: rgb(214, 247, 214);
 }
 
 .sea-container, .sea-button {
-    background-color: rgb(187, 221, 217);
+    background-color: rgb(199, 250, 244);
 }
 
 .fish-card, .bug-card, .sea-card {
-    border: 2px solid black;
+    display: flex;
     text-align: center;
-    /* width: 130px; */
     margin: 10px;
+    padding: 1em;
+    border-radius: 10px;
 }
 
-/* .fish-icon, .bug-icon, .sea-icon {
+.fish-2, .bug-2, .sea-2 {
+    text-align: left;
+    padding-left: 2em;
+}
+
+
+/* .fish-card-expanded, .bug-card-expanded, .sea-card-expanded {
     text-align: center;
-    display: flex;
+    margin: 10px;
 } */
 
-.fish-card-expanded, .bug-card-expanded, .sea-card-expanded {
-    border: 2px solid black;
-    text-align: center;
-    /* width: 130px; */
-    margin: 10px;
-    background-color: violet;
-}
-
-
-h2 {
-    text-align: center;
-}
 
 .login, .signup {
     margin: 0 2em 2em 2em;
@@ -125,4 +134,11 @@ h2 {
 
 .caught {
     background-color: rgb(150, 142, 142, 0.3);
+}
+
+.catch-btn {
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: none;
+    border: none;
 }
