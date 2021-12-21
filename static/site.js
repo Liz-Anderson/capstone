@@ -51,13 +51,13 @@ Vue.component('fish-card', {
             </div>
 
             <div v-if="showMore === true">
-                <p v-if="fish.is_all_day === true">time: available all day</p>
+                <p v-if="fish.is_all_day === true">time: <br>available all day</p>
 
-                <p v-else>time: [[ fish.time_info[0].hour_am_pm ]] through the [[ fish.time_info[fish.time_info.length - 1].hour_am_pm ]] hour</p>
+                <p v-else>time: <br>[[ fish.time_info[0].hour_am_pm ]] through the [[ fish.time_info[fish.time_info.length - 1].hour_am_pm ]] hour</p>
 
-                <p v-if="fish.is_all_year">season: available all year</p>
+                <p v-if="fish.is_all_year">season: <br>available all year</p>
 
-                <p v-else>season: [[ fish.month_span ]]</p>
+                <p v-else>season: <br>[[ fish.month_span.toLowerCase() ]]</p>
             </div>
             <div class="show-hint" v-if="currentUser.id">
                 <p v-if="showHint === false" @click="showHint = true, showMore = false">hints &or;</p>
@@ -65,9 +65,9 @@ Vue.component('fish-card', {
                 <p v-if="showHint === true" @click="showHint = false">hints ^</p>
             </div>
             <div v-if="showHint === true">
-                <p>location: [[ fish.location ]]</p>
-                <p>rarity: [[ fish.rarity ]]</p>
-                <p>shadow size: [[ fish.shadow_size ]]</p>
+                <p>location: <br>[[ fish.location.toLowerCase() ]]</p>
+                <p>rarity: <br>[[ fish.rarity.toLowerCase() ]]</p>
+                <p>shadow size: <br>[[ fish.shadow_size.toLowerCase() ]]</p>
             </div>
         </div>
     </div>
@@ -123,13 +123,13 @@ Vue.component('bug-card', {
                 <p v-if="showMore === true" @click="showMore = false">show less ^</p>
             </div>
             <div v-if="showMore === true">
-                <p v-if="bug.is_all_day === true">time: available all day</p>
+                <p v-if="bug.is_all_day === true">time: <br>available all day</p>
 
-                <p v-else>time: [[ bug.time_info[0].hour_am_pm ]] through the [[ bug.time_info[bug.time_info.length - 1].hour_am_pm ]] hour</p>
+                <p v-else>time: <br>[[ bug.time_info[0].hour_am_pm ]] through the [[ bug.time_info[bug.time_info.length - 1].hour_am_pm ]] hour</p>
 
-                <p v-if="bug.is_all_year">season: vailable all year</p>
+                <p v-if="bug.is_all_year">season: <br>vailable all year</p>
 
-                <p v-else>season: [[ bug.month_span ]]</p>
+                <p v-else>season: <br>[[ bug.month_span.toLowerCase() ]]</p>
 
             </div>
             <div class="show-hint" v-if="currentUser.id">
@@ -138,8 +138,8 @@ Vue.component('bug-card', {
                 <p v-if="showHint === true" @click="showHint = false">hide hint ^</p>
             </div>
             <div v-if="showHint === true">
-                <p>location: [[ bug.location ]]</p>
-                <p>rarity: [[ bug.rarity ]]</p>
+                <p>location: <br>[[ bug.location.toLowerCase() ]]</p>
+                <p>rarity: <br>[[ bug.rarity.toLowerCase() ]]</p>
             </div>
         </div>
                 
@@ -198,13 +198,13 @@ Vue.component('sea-card', {
             </div>
             
             <div v-if="showMore === true">
-                <p v-if="sea.is_all_day === true">time: available all day</p>
+                <p v-if="sea.is_all_day === true">time: <br>available all day</p>
 
-                <p v-else>time: [[ sea.time_info[0].hour_am_pm ]] through the [[ sea.time_info[sea.time_info.length - 1].hour_am_pm ]] hour</p>
+                <p v-else>time: <br>[[ sea.time_info[0].hour_am_pm ]] through the [[ sea.time_info[sea.time_info.length - 1].hour_am_pm ]] hour</p>
 
-                <p v-if="sea.is_all_year">season: available all year</p>
+                <p v-if="sea.is_all_year">season: <br>available all year</p>
 
-                <p v-else>season: [[ sea.month_span ]]</p>
+                <p v-else>season: <br>[[ sea.month_span.toLowerCase() ]]</p>
             </div>
             <div class="show-hint" v-if="currentUser.id">
                 <p v-if="showHint === false" @click="showHint = true, showMore = false">hints &or;</p>
@@ -212,8 +212,8 @@ Vue.component('sea-card', {
                 <p v-if="showHint === true" @click="showHint = false">hints ^</p>
             </div>
             <div v-if="showHint === true">
-                <p>shadow size: [[ sea.shadow_size ]]</p>
-                <p>speed: [[ sea.speed ]]</p>
+                <p>shadow size: <br>[[ sea.shadow_size.toLowerCase() ]]</p>
+                <p>speed: <br>[[ sea.speed.toLowerCase() ]]</p>
             </div>
         </div>
     </div>
@@ -260,6 +260,7 @@ const vm = new Vue({
         bugs: [],
         seaCreatures: [],
         users: [],
+        username: '',
         currentUser: {},
         csrf_token: "",
         clicked: "fish",
@@ -312,6 +313,9 @@ const vm = new Vue({
             })
         },
         availableNow: function() {
+            if (!(this.option === 'available')) {
+                return ''
+            }
             let date = new Date()
             let monthNow = date.getMonth()
             let hourNow = date.getHours()
@@ -368,7 +372,86 @@ const vm = new Vue({
                 'bugs' : catchNowBugs,
                 'sea' : catchNowSea
             }
-        } 
+        },
+
+        friendRequest: function(username) {
+            // friendId = ''
+            for(let user of this.users){
+                if(username === user.username) {
+                    // friendId.push(user.id)
+                    this.currentUser.outbound_friend_requests.push(user.id)
+                }
+            }
+            // this.currentUser.outbound_friend_requests.push(parseInt(friendId))
+            axios({
+                method: 'patch',
+                url: '/api/v1/currentuser/',
+                headers: {
+                    'X-CSRFToken': this.csrf_token
+                },
+                data: {
+                    'outbound_friend_requests' : this.currentUser.outbound_friend_requests
+                }
+            }).then(response => {
+                this.loadCurrentUser()
+                this.username = ''
+            })
+        },
+        acceptFriend: function(friendId) {   
+            if (this.currentUser.inbound_friend_requests.includes(friendId)){
+            this.currentUser.inbound_friend_requests.splice(this.currentUser.inbound_friend_requests.indexOf(friendId), 1)
+            console.log(this.currentUser.inbound_friend_requests)
+            this.currentUser.friends.push(friendId)
+                axios({
+                    method: 'patch',
+                    url: '/api/v1/currentuser/',
+                    headers: {
+                    'X-CSRFToken': this.csrf_token
+                    },
+                    data: {
+                        'inbound_friend_requests': this.currentUser.inbound_friend_requests,
+                        'friends': this.currentUser.friends
+                    }
+                }).then(response => {
+                this.loadCurrentUser()
+            })
+            }
+        },
+        denyFriend: function(friendId) {
+            if (this.currentUser.inbound_friend_requests.includes(friendId)){
+                this.currentUser.inbound_friend_requests.splice(this.currentUser.inbound_friend_requests.indexOf(friendId), 1)
+                axios({
+                    method: 'patch',
+                    url: '/api/v1/currentuser/',
+                    headers: {
+                    'X-CSRFToken': this.csrf_token
+                    },
+                    data: {
+                        'inbound_friend_requests': this.currentUser.inbound_friend_requests
+                    }
+                }).then(response => {
+                this.loadCurrentUser()
+                })
+            }
+        },
+
+        unfriend: function(friendId) {
+            if(this.currentUser.friends.includes(friendId)){
+                this.currentUser.friends.splice(this.currentUser.friends.indexOf(friendId), 1)
+                axios({
+                    method: 'patch',
+                    url: '/api/v1/currentuser/',
+                        headers: {
+                        'X-CSRFToken': this.csrf_token
+                        },
+                        data: {
+                            'friends': this.currentUser.friends
+                        }
+                }).then(response => {
+                this.loadCurrentUser()
+                })
+            }
+        }
     },
     created: function() {
         this.loadFish()

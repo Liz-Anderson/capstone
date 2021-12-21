@@ -8,6 +8,17 @@
     <a href="{% url 'home' %}">home</a>  &#8226;
     <a href="{% url 'logout' %}">log out</a>
 </div>
+<div>
+    <p>add friend: </p>
+    <input type="text" name="username" v-model="username" @keyup.enter="friendRequest(username)"/>
+    <button @click="friendRequest(username)">send request</button>
+</div>
+<div v-show="">
+    <p>do you want to be friends with:</p>
+    <p></p>
+    <button @click="acceptFriend(username)">accept friend</button>
+    <button @click="denyFriend(username)">no thanks</button>
+</div>
 <friend-card
     v-if="currentUser"
     :currentuser="currentUser"

@@ -92,15 +92,15 @@ img {
 }
 
 .fish-container, .fish-button {
-    background-color: rgb(192, 222, 248);
+    background-color: rgb(209, 225, 250);
 }
 
 .bugs-container, .bug-button {
-    background-color: rgb(214, 247, 214);
+    background-color: rgb(204, 241, 223);
 }
 
 .sea-container, .sea-button {
-    background-color: rgb(199, 250, 244);
+    background-color: rgb(219, 250, 246);
 }
 
 .fish-card, .bug-card, .sea-card {
