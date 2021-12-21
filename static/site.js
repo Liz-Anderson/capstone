@@ -224,6 +224,7 @@ Vue.component('friend-card', {
         return {
             friendInfo: {},
             selectedId: "",
+            compare: false,
         }
     },
     props: ['currentuser'],
@@ -240,10 +241,23 @@ Vue.component('friend-card', {
     },
     template: `
     <div>
-        <select v-model="selectedId" @change="loadFriendInfo(selectedId)">
+        <select v-model="selectedId" @change="loadFriendInfo(selectedId), compare = true">
             <option v-for="friend in currentuser.friends_details" :value="friend.id">[[ friend.username ]]</option>
         </select>
-        <p>[[ friendInfo ]]</p>
+        <div v-if="compare === true">
+            <h2>fish:</h2>
+            <div v-for="fish in friendInfo.caught_fish_details">
+                <p>[[ fish.name ]]</p>
+            </div>
+            <h2>bugs:</h2>
+            <div v-for="bug in friendInfo.caught_bugs_details">
+                <p>[[ bug.name ]]</p>
+            </div>
+            <h2>sea creatures:</h2>
+            <div v-for="sea in friendInfo.caught_seacreatures_details">
+                <p>[[ sea.name ]]</p>
+            </div>
+        </div>
     </div>
     `
 })

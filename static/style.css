@@ -142,3 +142,12 @@ img {
     box-shadow: none;
     border: none;
 }
+
+.friend-pop {
+    background-color: rgb(240, 175, 208);
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 5px;
+    color: white;
+    font-size: 12px;
+}

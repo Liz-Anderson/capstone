@@ -4,21 +4,30 @@
 
 {% if user.is_authenticated %}
 <div class="link-container">
-    hi {{ user.username }}!  &#8226;
+    hi {{ user.username }}  &#8226;
     <a href="{% url 'home' %}">home</a>  &#8226;
     <a href="{% url 'logout' %}">log out</a>
 </div>
 <div>
-    <p>add friend: </p>
+    <label for="username">add friend: </label>
     <input type="text" name="username" v-model="username" @keyup.enter="friendRequest(username)"/>
     <button @click="friendRequest(username)">send request</button>
 </div>
-<div v-show="">
+<div v-if="currentUser.inbound_friend_requests.length">
     <p>do you want to be friends with:</p>
-    <p></p>
-    <button @click="acceptFriend(username)">accept friend</button>
-    <button @click="denyFriend(username)">no thanks</button>
+    <div v-for="friend in currentUser.inbound_friend_requests_details">
+        <p>[[ friend.username ]]</p>
+        <button @click="acceptFriend(friend.id)">yes please</button>
+        <button @click="denyFriend(friend.id)">no thanks</button>
+    </div>
 </div>
+<div v-if="currentUser.friends">
+    <div v-for="friend in currentUser.friends_details">
+        <p>[[ friend.username ]]</p>
+        <button @click="unfriend(friend.id)">unfriend</button>
+    </div>
+</div>
+
 <friend-card
     v-if="currentUser"
     :currentuser="currentUser"
