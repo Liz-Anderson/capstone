@@ -3,6 +3,7 @@
 {% block content %}
 
 {% if user.is_authenticated %}
+<p>hey</p>
     <div class="link-container">
         hi {{ user.username }}  &#8226;
         <a href="{% url 'compare' %}">friends  </a><span class="friend-pop" v-if="currentUser['inbound_friend_requests'].length">[[ currentUser['inbound_friend_requests'].length ]]</span>  &#8226;
