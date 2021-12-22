@@ -9,9 +9,9 @@ requests = "*"
 djangorestframework = "==3.12"
 django-on-heroku = "*"
 gunicorn = "*"
+pytz = "*"
 
 [dev-packages]
 
 [requires]
 python_version = "3.9"
-django = "3.2"
