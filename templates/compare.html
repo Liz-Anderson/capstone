@@ -13,7 +13,7 @@
     <input type="text" name="username" v-model="username" @keyup.enter="friendRequest(username)"/>
     <button @click="friendRequest(username)">send request</button>
 </div>
-<div v-if="currentUser.inbound_friend_requests.length">
+<div v-if="currentUser.inbound_friend_requests">
     <p>do you want to be friends with:</p>
     <div v-for="friend in currentUser.inbound_friend_requests_details">
         <p>[[ friend.username ]]</p>

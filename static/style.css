@@ -151,3 +151,10 @@ img {
     color: white;
     font-size: 12px;
 }
+
+.compare-friend {
+    display: flex;
+}
+.friend-list, .my-list {
+    width: 50%;
+}
