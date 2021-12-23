@@ -119,7 +119,7 @@ Vue.component('bug-card', {
         <div class="bug-2">
             <p>[[ bug.name ]]</p>
             <div class="show-more">
-                <p v-if="showMore === false" @click="showMore = true">show more &or;</p>
+                <p v-if="showMore === false" @click="showMore = true, showHint = false">show more &or;</p>
                 <p v-if="showMore === true" @click="showMore = false">show less ^</p>
             </div>
             <div v-if="showMore === true">
@@ -133,7 +133,7 @@ Vue.component('bug-card', {
 
             </div>
             <div class="show-hint" v-if="currentUser.id">
-                <p v-if="showHint === false" @click="showHint = true">show hint &or;</p>
+                <p v-if="showHint === false" @click="showHint = true, showMore = false">show hint &or;</p>
 
                 <p v-if="showHint === true" @click="showHint = false">hide hint ^</p>
             </div>
