@@ -16,13 +16,13 @@
             <option value="all">all</option>
             <option value="caught">caught</option>
             <option value="uncaught">uncaught</option>
-            <option  value="available">available</option>
+            <option value="available">available</option>
         </select>
         <!-- <button class="all-button" @click="option = 'all'">all</button>
         <button class="caught-button" @click="option = 'caught'">caught</button>
         <button class="uncaught-button" @click="option = 'uncaught'">uncaught</button>
-        <button class="now-btn" @click="availableNow(clicked),option = 'available'">available now</button>
-    </div> -->
+        <button class="now-btn" @click="availableNow(clicked),option = 'available'">available now</button> -->
+    </div>
 
     <div class="button-container">
         <a href="#fish-top"><button class="fish-button" @click="clicked = 'fish'">fish</button></a>
@@ -67,7 +67,7 @@
 
             <div v-if="option === 'uncaught'">
                 <div v-if="uncaughtFish.length === 0">
-                    <p>you caught all the fish. Congratulations!</p>
+                    <p>you caught all the fish. congratulations!</p>
                 </div>
                 <div v-else>
                     <h2 id="fish-top">uncaught Fish:</h2>
@@ -136,7 +136,7 @@
 
             <div v-if="option === 'uncaught'">
                 <div v-if="uncaughtBugs.length === 0">
-                    <p>you caught all the bugs. Congratulations!</p>
+                    <p>you caught all the bugs. congratulations!</p>
                 </div>
                 <div v-else>
                     <h2 id="bug-top">uncaught bugs:</h2>
@@ -205,7 +205,7 @@
 
             <div v-if="option === 'uncaught'">
                 <div v-if="uncaughtSeaCreatures.length === 0">
-                    <p>you caught all the sea creatures. Congratulations!</p>
+                    <p>you caught all the sea creatures. congratulations!</p>
                 </div>
                 <div v-else>
                     <h2 id="sea-top">uncaught sea creatures:</h2>

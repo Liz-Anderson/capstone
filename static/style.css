@@ -4,8 +4,8 @@ font-family: 'Ribeye Marrow', cursive; */
 /* --------mobile------------- */
 
 body {
-    /* background-color: rgb(243, 237, 211); */
-    background: url("https://pbs.twimg.com/media/EPngkecWAAAI16e.jpg");
+    background-color: rgb(250, 246, 227);
+    /* background: url("https://pbs.twimg.com/media/EPngkecWAAAI16e.jpg"); */
     padding: 0;
     margin: 0;
     min-height: 100vh;
@@ -18,7 +18,7 @@ main {
     min-height: 100vh;
     margin: 0;
     padding: 0px 0px 10px 0px;
-    background-color: rgb(255, 255, 255, 0.7);
+    /* background-color: rgb(255, 255, 255, 0.8); */
 }
 
 h1 {
@@ -51,12 +51,13 @@ img {
     text-align: center;
 }
 
-.header {
-    text-align: center;
+.option-container {
+    padding-left: 2em;
+    padding-top: 1em;
 }
 
-.link-container {
-    padding-left: 2em;
+.header {
+    text-align: center;
 }
 
 .button-container {
@@ -80,7 +81,7 @@ img {
 .fish-container, .bugs-container, .sea-container {
     margin: 0px 10px 0px 10px;
     padding: 10px;
-    height: 387px;
+    height: 400px;
     /* height: 100vh; */
     overflow: scroll;
 
@@ -92,15 +93,15 @@ img {
 }
 
 .fish-container, .fish-button {
-    background-color: rgb(209, 225, 250);
+    background-color: rgb(195, 228, 236);
 }
 
 .bugs-container, .bug-button {
-    background-color: rgb(204, 241, 223);
+    background-color: rgb(198, 240, 220);
 }
 
 .sea-container, .sea-button {
-    background-color: rgb(219, 250, 246);
+    background-color: rgb(224, 250, 246);
 }
 
 .fish-card, .bug-card, .sea-card {
@@ -115,12 +116,6 @@ img {
     text-align: left;
     padding-left: 2em;
 }
-
-
-/* .fish-card-expanded, .bug-card-expanded, .sea-card-expanded {
-    text-align: center;
-    margin: 10px;
-} */
 
 
 .login, .signup {
@@ -141,6 +136,7 @@ img {
     border-radius: 10px;
     box-shadow: none;
     border: none;
+    width: 85px;
 }
 
 .friend-pop {
@@ -153,8 +149,13 @@ img {
 }
 
 .compare-friend {
-    display: flex;
+    /* display: flex; */
+    width: 100vw;
 }
-.friend-list, .my-list {
-    width: 50%;
+.compare-fish, .compare-bugs, .compare-sea {
+    display: flex;
+    /* width: 100px; */
+}
+.my-list, .compare-list {
+    width: 50vw;
 }

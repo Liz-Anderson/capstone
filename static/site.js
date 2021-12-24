@@ -219,6 +219,9 @@ Vue.component('sea-card', {
     </div>
     `,
 })
+// --------------------------------------
+// --------- friend component -----------
+// --------------------------------------
 Vue.component('friend-card', {
     data: function() {
         return {
@@ -246,30 +249,29 @@ Vue.component('friend-card', {
             <option v-for="friend in currentuser.friends_details" :value="friend.id">[[ friend.username ]]</option>
         </select>
         <div class="compare-friend" v-if="compare === true">
-            <div class="my-list">
+            <div class="compare-fish">
                 <h2>fish:</h2>
-                <div v-for="fish in currentuser.caught_fish_details">
+                <div class="my-list" v-for="fish in currentuser.caught_fish_details">
                     <p>[[ fish.name ]]</p>
                 </div>
+                <div class="compare-list" v-for="fish in friendInfo.caught_fish_details">
+                    <p>[[ fish.name ]]</p>
+                </div>
+            </div>
+            <div class="compare-bugs">
                 <h2>bugs:</h2>
                 <div v-for="bug in currentuser.caught_bugs_details">
                     <p>[[ bug.name ]]</p>
                 </div>
+                <div v-for="bug in friendInfo.caught_bugs_details">
+                    <p>[[ bug.name ]]</p>
+                </div>
+            </div>
+            <div class="compare-sea">
                 <h2>sea creatures:</h2>
                 <div v-for="sea in currentuser.caught_seacreatures_details">
                     <p>[[ sea.name ]]</p>
                 </div>
-            </div>
-            <div class="friend-list">
-                <h2>fish:</h2>
-                <div v-for="fish in friendInfo.caught_fish_details">
-                    <p>[[ fish.name ]]</p>
-                </div>
-                <h2>bugs:</h2>
-                <div v-for="bug in friendInfo.caught_bugs_details">
-                    <p>[[ bug.name ]]</p>
-                </div>
-                <h2>sea creatures:</h2>
                 <div v-for="sea in friendInfo.caught_seacreatures_details">
                     <p>[[ sea.name ]]</p>
                 </div>
@@ -296,6 +298,8 @@ const vm = new Vue({
         csrf_token: "",
         clicked: "fish",
         option: "all",
+        select: "",
+        requests: false,
         catchNow: {
             'fish' : [],
             'bugs' : [],
@@ -522,7 +526,7 @@ const vm = new Vue({
             return this.seaCreatures.filter(sea => {
                 return !this.currentUser.caught_seacreatures.includes(sea.id)
             })
-        },
+        }
     },
     mounted: function() {
         this.csrf_token = document.querySelector("input[name=csrfmiddlewaretoken]").value;
