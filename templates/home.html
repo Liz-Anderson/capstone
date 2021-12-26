@@ -3,31 +3,28 @@
 {% block content %}
 
 {% if user.is_authenticated %}
+    <div class="nav-container">
+        <div class="link-container">
+            hi {{ user.username }}  &#8226;
+            <a href="{% url 'compare' %}">friends  </a><span class="friend-pop" v-if="currentUser['inbound_friend_requests']">[[ currentUser['inbound_friend_requests'].length ]]</span>  &#8226;
+            <a href="{% url 'logout' %}">log out</a>
+        </div>
 
-    <div class="link-container">
-        hi {{ user.username }}  &#8226;
-        <a href="{% url 'compare' %}">friends  </a><span class="friend-pop" v-if="currentUser['inbound_friend_requests']">[[ currentUser['inbound_friend_requests'].length ]]</span>  &#8226;
-        <a href="{% url 'logout' %}">log out</a>
-    </div>
+        <div class="option-container">
+            <span>see: </span>
+            <select @change="availableNow()" v-model="option">
+                <option value="all">all</option>
+                <option value="caught">caught</option>
+                <option value="uncaught">uncaught</option>
+                <option value="available">available</option>
+            </select>
+        </div>
 
-    <div class="option-container">
-        <span>see: </span>
-        <select @change="availableNow()" v-model="option">
-            <option value="all">all</option>
-            <option value="caught">caught</option>
-            <option value="uncaught">uncaught</option>
-            <option value="available">available</option>
-        </select>
-        <!-- <button class="all-button" @click="option = 'all'">all</button>
-        <button class="caught-button" @click="option = 'caught'">caught</button>
-        <button class="uncaught-button" @click="option = 'uncaught'">uncaught</button>
-        <button class="now-btn" @click="availableNow(clicked),option = 'available'">available now</button> -->
-    </div>
-
-    <div class="button-container">
-        <a href="#fish-top"><button class="fish-button" @click="clicked = 'fish'">fish</button></a>
-        <a href="#bug-top"><button class="bug-button" @click="clicked = 'bugs'">bugs</button></a>
-        <a href="#sea-top"><button class="sea-button" @click="clicked = 'sea'">sea creatures</button></a>
+        <div class="button-container">
+            <a href="#fish-top"><button class="fish-button" @click="clicked = 'fish'">fish</button></a>
+            <a href="#bug-top"><button class="bug-button" @click="clicked = 'bugs'">bugs</button></a>
+            <a href="#sea-top"><button class="sea-button" @click="clicked = 'sea'">sea creatures</button></a>
+        </div>
     </div>
 
     <div class="card-container">

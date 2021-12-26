@@ -13,7 +13,6 @@ body {
 }
 
 main {
-    
     min-width: 100%;
     min-height: 100vh;
     margin: 0;
@@ -24,9 +23,9 @@ main {
 h1 {
     font-family: 'Ribeye', Arial, sans-serif;
     margin: 0;
-    padding: 1em;
-    
+    padding: 1em;   
 }
+
 h2 {
     text-align: center;
 }
@@ -60,12 +59,15 @@ img {
     text-align: center;
 }
 
+.nav-container {
+    position: sticky;
+}
+
 .button-container {
     display: flex;
     margin: 10px 10px 0px 10px;
     top: 0;
-    position: sticky;
-    
+    /* position: sticky;   */
 }
 
 .fish-button, .bug-button, .sea-button {
@@ -81,26 +83,24 @@ img {
 .fish-container, .bugs-container, .sea-container {
     margin: 0px 10px 0px 10px;
     padding: 10px;
-    height: 400px;
-    /* height: 100vh; */
+    /* height: 400px; */
+    height: 100vh;
     overflow: scroll;
-
-    
 }
 
 .sea-button {
     padding: 0;
 }
 
-.fish-container, .fish-button {
+.fish-container, .fish-button, .fish-list {
     background-color: rgb(195, 228, 236);
 }
 
-.bugs-container, .bug-button {
+.bugs-container, .bug-button, .bug-list {
     background-color: rgb(198, 240, 220);
 }
 
-.sea-container, .sea-button {
+.sea-container, .sea-button, .sea-list {
     background-color: rgb(224, 250, 246);
 }
 
@@ -116,7 +116,6 @@ img {
     text-align: left;
     padding-left: 2em;
 }
-
 
 .login, .signup {
     margin: 0 2em 2em 2em;
@@ -148,14 +147,39 @@ img {
     font-size: 12px;
 }
 
-.compare-friend {
-    /* display: flex; */
-    width: 100vw;
+/* ----- friends page -------- */
+.friend-container {
+    padding: 0 1em 1em 1em;
 }
+
+.friend-options-container {
+    margin-top: 1em;
+}
+
+/* .unfriend-btn {
+    
+} */
+
+.fish-list, .bug-list, .sea-list {
+    padding: 1em 0 1em 0;
+}
+
 .compare-fish, .compare-bugs, .compare-sea {
     display: flex;
-    /* width: 100px; */
 }
+
 .my-list, .compare-list {
-    width: 50vw;
+    width: 50%;
+    /* padding: 0.5em; */
 }
+
+.my-list {
+    text-align: right;
+    padding-right: 0.5em;
+    border-right: 1px solid gray;
+}
+
+.compare-list {
+    padding-left: 0.5em;
+}
+

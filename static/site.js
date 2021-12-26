@@ -249,31 +249,49 @@ Vue.component('friend-card', {
             <option v-for="friend in currentuser.friends_details" :value="friend.id">[[ friend.username ]]</option>
         </select>
         <div class="compare-friend" v-if="compare === true">
-            <div class="compare-fish">
+            <div class="fish-list">
                 <h2>fish:</h2>
-                <div class="my-list" v-for="fish in currentuser.caught_fish_details">
-                    <p>[[ fish.name ]]</p>
-                </div>
-                <div class="compare-list" v-for="fish in friendInfo.caught_fish_details">
-                    <p>[[ fish.name ]]</p>
+                <div class="compare-fish">
+                    <div class="my-list">
+                        <div v-for="fish in currentuser.caught_fish_details">
+                            <p>[[ fish.name ]]</p>
+                        </div>
+                    </div>
+                    <div class="compare-list">
+                        <div v-for="fish in friendInfo.caught_fish_details">
+                            <p>[[ fish.name ]]</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="compare-bugs">
+            <div class="bug-list">
                 <h2>bugs:</h2>
-                <div v-for="bug in currentuser.caught_bugs_details">
-                    <p>[[ bug.name ]]</p>
-                </div>
-                <div v-for="bug in friendInfo.caught_bugs_details">
-                    <p>[[ bug.name ]]</p>
+                <div class="compare-bugs">
+                    <div class="my-list">
+                        <div v-for="bug in currentuser.caught_bugs_details">
+                            <p>[[ bug.name ]]</p>
+                        </div>
+                    </div>
+                    <div class="compare-list">
+                        <div v-for="bug in friendInfo.caught_bugs_details">
+                            <p>[[ bug.name ]]</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="compare-sea">
+            <div class="sea-list">
                 <h2>sea creatures:</h2>
-                <div v-for="sea in currentuser.caught_seacreatures_details">
-                    <p>[[ sea.name ]]</p>
-                </div>
-                <div v-for="sea in friendInfo.caught_seacreatures_details">
-                    <p>[[ sea.name ]]</p>
+                <div class="compare-sea">
+                    <div class="my-list">
+                        <div v-for="sea in currentuser.caught_seacreatures_details">
+                            <p>[[ sea.name ]]</p>
+                        </div>
+                    </div>
+                    <div class="compare-list">
+                        <div v-for="sea in friendInfo.caught_seacreatures_details">
+                            <p>[[ sea.name ]]</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

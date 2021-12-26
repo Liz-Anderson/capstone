@@ -3,49 +3,68 @@
 {% block content %}
 
 {% if user.is_authenticated %}
+
 <div class="link-container">
     hi {{ user.username }}  &#8226;
     <a href="{% url 'home' %}">home</a>  &#8226;
     <a href="{% url 'logout' %}">log out</a>
 </div>
-<h2>friends</h2>
-<label for="friend-options">what do you want to do?</label>
-<select name="friend-options" v-model="select">
-    <option value="add">add a friend</option>
-    <option value="requests">check friend requests</option>
-    <option value="list">see all friends</option>
-    <option value="compare">compare with a friend</option>
-</select>
-<div v-if="select === 'add'">
-    <label for="username">add friend: </label>
-    <input type="text" name="username" v-model="username" @keyup.enter="friendRequest(username)"/>
-    <button @click="friendRequest(username)">send request</button>
-</div>
-<div v-if="select === 'requests'">
-    <div v-if="currentUser.inbound_friend_requests">
-        <p>wanna be friends with ...</p>
-        <div v-for="friend in currentUser.inbound_friend_requests_details">
-            <p>[[ friend.username ]]</p>
-            <button @click="acceptFriend(friend.id)">yes please</button>
-            <button @click="denyFriend(friend.id)">no thanks</button>
+<div class="friend-container">
+    <h2>friends</h2>
+    <div class="friend-options">
+        <label for="friend-options">what do you want to do?</label>
+        <select name="friend-options" v-model="select">
+            <option value="add">add a friend</option>
+            <option value="requests">check friend requests</option>
+            <option value="list">see all friends</option>
+            <option value="compare">compare with a friend</option>
+        </select>
+    </div>
+    <div class="friend-options-container">
+        <div class="add" v-if="select === 'add'">
+            <label for="username">add friend: </label>
+            <input type="text" name="username" v-model="username" @keyup.enter="friendRequest(username)"/>
+            <button @click="friendRequest(username)">send request</button>
+        </div>
+        <div class="requests" v-if="select === 'requests'">
+            <div v-if="currentUser.inbound_friend_requests">
+                <div v-if="currentUser.inbound_friend_requests.length === 0">
+                    <p>you have no friend requests at this time</p>
+                </div>
+                <div v-else>
+                    <p>wanna be friends with ...</p>
+                    <div v-for="friend in currentUser.inbound_friend_requests_details">
+                        <p>[[ friend.username ]]</p>
+                        <button @click="acceptFriend(friend.id)">yes please</button>
+                        <button @click="denyFriend(friend.id)">no thanks</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="list" v-if="select === 'list'">
+            <div v-if="currentUser.friends.length === 0">
+                <p>your friends list is empty</p>
+            </div>
+            <div v-else>
+                <div v-for="friend in currentUser.friends_details">
+                    <span>[[ friend.username ]]</span>
+                    <button class="unfriend-btn" @click="unfriend(friend.id)">unfriend</button>
+                </div>
+            </div>
+        </div>
+        <div class="compare" v-if="select === 'compare'">
+            <div v-if="currentUser.friends.length === 0">
+                <p>you need to add at least one friend before trying to compare</p>
+            </div>
+            <div v-else>
+                <friend-card
+                    v-if="currentUser"
+                    :currentuser="currentUser"
+                ></friend-card>
+            </div>
         </div>
     </div>
 </div>
-<div v-if="select === 'list'">
-    <div v-if="currentUser.friends">
-        <div v-for="friend in currentUser.friends_details">
-            <p>[[ friend.username ]]</p>
-            <button @click="unfriend(friend.id)">unfriend</button>
-        </div>
-    </div>
-</div>
-<div v-if="select === 'compare'">
-    <friend-card
-        v-if="currentUser"
-        :currentuser="currentUser"
-    ></friend-card>
-</div>
-
 {% else %}
 <a href="{% url 'login' %}">log in</a> or <a href="{% url 'signup' %}">sign up</a>
 {% endif %}
