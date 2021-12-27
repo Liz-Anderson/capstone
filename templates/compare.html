@@ -26,6 +26,7 @@
             <label for="username">add friend: </label>
             <div class="add-friend-input">
                 <input  type="text" name="username" v-model="username" @keyup.enter="friendRequest(username)"/>
+                <span class="helptext">enter friend's username</span>
             </div>
             <button @click="friendRequest(username)">send request</button>
         </div>
@@ -49,6 +50,7 @@
                 <p>your friends list is empty</p>
             </div>
             <div v-else>
+                <p>friends list:</p>
                 <div class="friend-list" v-for="friend in currentUser.friends_details">
                     <span class="friend-list-name">[[ friend.username ]]</span>
                     <button class="unfriend-btn" @click="unfriend(friend.id)">unfriend</button>

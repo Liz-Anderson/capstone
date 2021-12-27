@@ -1,11 +1,9 @@
-/* font-family: 'Comfortaa', cursive;
-font-family: 'Ribeye', cursive;
-font-family: 'Ribeye Marrow', cursive; */
+
 /* --------mobile------------- */
 
 body {
-    background-color: rgb(250, 246, 227);
-    /* background: url("https://pbs.twimg.com/media/EPngkecWAAAI16e.jpg"); */
+    /* background-color: rgb(250, 246, 227); */
+    background: url("https://pbs.twimg.com/media/EPngkecWAAAI16e.jpg");
     padding: 0;
     margin: 0;
     min-height: 100vh;
@@ -18,14 +16,11 @@ main {
     width: 100vw;
     height: 100vh;
     margin: 0;
-    /* padding: 0px 0px 10px 0px; */
-    /* background-color: rgb(255, 255, 255, 0.8); */
-    
-    /* overflow:hidden; */
+    background-color: rgba(228, 231, 231, 0.8);
 }
 
 h1 {
-    font-family: 'Ribeye', Arial, sans-serif;
+    /* font-family: 'Ribeye', Arial, sans-serif; */
     margin: 0;
     padding: 1em;   
 }
@@ -95,7 +90,6 @@ input {
 }
 
 .nav-container {
-    /* position: sticky; */
     flex-grow: 0;
 }
 
@@ -111,8 +105,6 @@ input {
     height: 60px;
     box-shadow: none;
     border-radius: 15px 15px 0px 0px;
-    /* border-top-left-radius: 15px;
-    border-top-right-radius: 15px; */
     border: none;
     font-size: 20px;
     margin: 0;
@@ -155,14 +147,14 @@ input {
 .fish-2, .bug-2, .sea-2 {
     text-align: left;
     padding-left: 2em;
-
-    /* LIZ! this should make things nice and even */
-
     width: 150px;
 }
 
 .login, .signup {
-    margin: 0 2em 2em 2em;
+    margin: 0 1em 1em 1em;
+    overflow-y: visible;
+    overflow-x: scroll;
+    padding-right: 0.7em;
 }
 
 .login-btn, .signup-btn {
@@ -213,6 +205,10 @@ input {
     border-radius: 10px;
 }
 
+.friend-list {
+    text-align: center;
+}
+
 .compare-fish, .compare-bugs, .compare-sea, .compare-names {
     display: flex;
 }
@@ -225,7 +221,6 @@ input {
     overflow-wrap: break-word;
 }
 
-
 .my-list, .my-name {
     text-align: right;
     padding-right: 0.5em;
@@ -235,6 +230,7 @@ input {
 .compare-list, .friend-name {
     padding-left: 0.5em;
 }
+
 .my-name, .friend-name {
     text-align: center;
 }
@@ -244,15 +240,14 @@ input {
     width: 100px;
 }
 .add-friend-input {
-    /* border: 1px solid red; */
     padding-right: 10px;
 }
 
-/* #app {
-    display: flex;
-    flex-direction: column;
-    height: auto;
-} */
+.card-container {
+    flex-grow: 1;
+    overflow: hidden;
+    
+}
 
 #app {
     flex-grow: 1;
@@ -263,46 +258,33 @@ input {
 }
 
 
-.card-container {
-    flex-grow: 1;
-    overflow: hidden;
-    
-}
-
-/* .fish-container div h2 {
-    margin-top: 2em;
-} */
-
-
-
 
 
 /* -----------tablet------------------ */
 @media (min-width: 640px) {
-    /* button {
+    button, select, input {
         width: 400px;
-    } */
+    }
+
+    .login, .signup {
+        width: 400px;
+        padding-left: auto;
+        padding-right: auto;
+    }
+
+    .fish-button, .bug-button, .sea-button {
+        width: 100%;
+      
+    }
 
     .fish-container, .bugs-container, .sea-container {
         border-radius: 0 15px 15px 15px;
     }
     
     .fish-card, .bug-card, .sea-card {
-        /* width: 50%; */
         flex-grow: 1;
     }
-    /* .card-container {
-        display: flex;
-        flex-wrap: wrap; 
-        height:100%;
-    } */
-
-    /* .fish-container, .bugs-container, .sea-container {
-        
-        background-color: red;
-        height: 100%;
-        
-    } */
+    
 
     .fish-container div:first-child, .bugs-container div:first-child, .sea-container div:first-child {
         display: flex;
@@ -319,24 +301,6 @@ input {
         flex-direction: column;
     }
 
-
-
-    /* 
-    ================================
-
-    dear liz,
-
-    way up ^^^ at ".fish-2, .bug-2, .sea-2" there's sometihng that makes this all work nicely
-
-    i love you!
-
-    xoxo
-
-    peepee
-    
-    ================================
-
-    */
 
         
     

@@ -6,7 +6,7 @@
     <div class="nav-container">
         <div class="link-container">
             hi {{ user.username }}  &#8226;
-            <a href="{% url 'compare' %}">friends  </a><span class="friend-pop" v-if="currentUser['inbound_friend_requests']">[[ currentUser['inbound_friend_requests'].length ]]</span>  &#8226;
+            <a href="{% url 'compare' %}">friends  </a><span class="friend-pop" v-if="currentUser['inbound_friend_requests'].length">[[ currentUser['inbound_friend_requests'].length ]]</span>  &#8226;
             <a href="{% url 'logout' %}">log out</a>
         </div>
 
@@ -257,43 +257,49 @@
         <!-- -------fish---------- -->
     <div class="card-container">
         <div class="fish-container" v-show="clicked === 'fish'">
-            <h2 id="fish-top">fish available: </h2>
-            <fish-card
-                v-for="fish in fish"
-                :key="fish.id_num"
-                :fish="fish"
-                :current-user="currentUser"
-                :csrf_token="csrf_token"
-                @after-catch="loadCurrentUser"
-            ></fish-card>
+            <div>
+                <h2 id="fish-top">fish available: </h2>
+                <fish-card
+                    v-for="fish in fish"
+                    :key="fish.id_num"
+                    :fish="fish"
+                    :current-user="currentUser"
+                    :csrf_token="csrf_token"
+                    @after-catch="loadCurrentUser"
+                ></fish-card>
+            </div>
         </div>
 
         <!-- --------bugs---------- -->
 
         <div class="bugs-container" v-show="clicked === 'bugs'">
-            <h2 id="bug-top">bugs available: </h2>
-            <bug-card
-                v-for="bug in bugs"
-                :key="bug.id_num"
-                :bug="bug"
-                :current-user="currentUser"
-                :csrf_token="csrf_token"
-                @after-catch="loadCurrentUser"
-            ></bug-card>
+            <div>
+                <h2 id="bug-top">bugs available: </h2>
+                <bug-card
+                    v-for="bug in bugs"
+                    :key="bug.id_num"
+                    :bug="bug"
+                    :current-user="currentUser"
+                    :csrf_token="csrf_token"
+                    @after-catch="loadCurrentUser"
+                ></bug-card>
+            </div>
         </div>
 
         <!-- --------sea creatures------ -->
 
         <div class="sea-container" v-show="clicked === 'sea'">
-            <h2 id="sea-top">sea creatures available: </h2>
-            <sea-card
-                v-for="sea in seaCreatures"
-                :key="sea.id_num"
-                :sea="sea"
-                :current-user="currentUser"
-                :csrf_token="csrf_token"
-                @after-catch="loadCurrentUser"
-            ></sea-card>
+            <div>
+                <h2 id="sea-top">sea creatures available: </h2>
+                <sea-card
+                    v-for="sea in seaCreatures"
+                    :key="sea.id_num"
+                    :sea="sea"
+                    :current-user="currentUser"
+                    :csrf_token="csrf_token"
+                    @after-catch="loadCurrentUser"
+                ></sea-card>
+            </div>
         </div>
     </div>
     

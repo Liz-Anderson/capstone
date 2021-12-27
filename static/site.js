@@ -42,10 +42,10 @@ Vue.component('fish-card', {
             </p>
         </div>
         <div class="fish-2">
-            <p>[[ fish.name ]]</p>
+            <p><b>[[ fish.name ]]</b></p>
             <div class="show-more">
 
-                <p v-if="showMore === false" @click="showMore = true, showHint = false">availablilty &or;</p>
+                <p v-if="showMore === false" @click="showMore = true, showHint = false">availability &or;</p>
 
                 <p v-if="showMore === true" @click="showMore = false">availability ^</p>
             </div>
@@ -117,25 +117,25 @@ Vue.component('bug-card', {
             </div>
         </div>
         <div class="bug-2">
-            <p>[[ bug.name ]]</p>
+            <p><b>[[ bug.name ]]</b></p>
             <div class="show-more">
-                <p v-if="showMore === false" @click="showMore = true, showHint = false">show more &or;</p>
-                <p v-if="showMore === true" @click="showMore = false">show less ^</p>
+                <p v-if="showMore === false" @click="showMore = true, showHint = false">availability &or;</p>
+                <p v-if="showMore === true" @click="showMore = false">availability ^</p>
             </div>
             <div v-if="showMore === true">
                 <p v-if="bug.is_all_day === true">time: <br>available all day</p>
 
                 <p v-else>time: <br>[[ bug.time_info[0].hour_am_pm ]] through the [[ bug.time_info[bug.time_info.length - 1].hour_am_pm ]] hour</p>
 
-                <p v-if="bug.is_all_year">season: <br>vailable all year</p>
+                <p v-if="bug.is_all_year">season: <br>available all year</p>
 
                 <p v-else>season: <br>[[ bug.month_span.toLowerCase() ]]</p>
 
             </div>
             <div class="show-hint" v-if="currentUser.id">
-                <p v-if="showHint === false" @click="showHint = true, showMore = false">show hint &or;</p>
+                <p v-if="showHint === false" @click="showHint = true, showMore = false">hints &or;</p>
 
-                <p v-if="showHint === true" @click="showHint = false">hide hint ^</p>
+                <p v-if="showHint === true" @click="showHint = false">hints ^</p>
             </div>
             <div v-if="showHint === true">
                 <p>location: <br>[[ bug.location.toLowerCase() ]]</p>
@@ -189,7 +189,7 @@ Vue.component('sea-card', {
             </p>        
         </div>
         <div class="sea-2">
-            <p>[[ sea.name ]]</p>
+            <p><b>[[ sea.name ]]</b></p>
             <div class="show-more">
 
                 <p v-if="showMore === false" @click="showMore = true, showHint = false">availability &or;</p>
@@ -323,7 +323,9 @@ const vm = new Vue({
         seaCreatures: [],
         users: [],
         username: '',
-        currentUser: {},
+        currentUser: {
+            inbound_friend_requests: []
+        },
         csrf_token: "",
         clicked: "fish",
         option: "all",
