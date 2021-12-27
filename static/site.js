@@ -249,6 +249,17 @@ Vue.component('friend-card', {
             <option v-for="friend in currentuser.friends_details" :value="friend.id">[[ friend.username ]]</option>
         </select>
         <div class="compare-friend" v-if="compare === true">
+            <div class="compare-names-container">
+                <h2>comparing:</h2>
+                <div class="compare-names">
+                    <div class="my-name">
+                        <h3><b>[[ currentuser.username ]]</b></h3>
+                    </div>
+                    <div class="friend-name">
+                        <h3><b>[[ friendInfo.username ]]</b></h3>
+                    </div>
+                </div>
+            </div>
             <div class="fish-list">
                 <h2>fish:</h2>
                 <div class="compare-fish">

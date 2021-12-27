@@ -20,7 +20,7 @@
             </select>
         </div>
 
-        <div class="button-container">
+        <div class="button-container" >
             <a href="#fish-top"><button class="fish-button" @click="clicked = 'fish'">fish</button></a>
             <a href="#bug-top"><button class="bug-button" @click="clicked = 'bugs'">bugs</button></a>
             <a href="#sea-top"><button class="sea-button" @click="clicked = 'sea'">sea creatures</button></a>
@@ -239,62 +239,63 @@
 
 
 {% else %}
-    <div class="link-container">
-        <a href="{% url 'login' %}">log in</a> &#8226;
-        <a href="{% url 'signup' %}">sign up</a>
-    </div>
+    <div class="nav-container">
+        <div class="link-container">
+            <a href="{% url 'login' %}">log in</a> &#8226;
+            <a href="{% url 'signup' %}">sign up</a>
+        </div>
 
     <!-- -------buttons------- -->
 
-    <div>
+    
         <div class="button-container">
             <a href="#fish-top"><button class="fish-button" @click="clicked = 'fish'">fish</button></a>
             <a href="#bug-top"><button class="bug-button" @click="clicked = 'bugs'">bugs</button></a>
             <a href="#sea-top"><button class="sea-button" @click="clicked = 'sea'">sea creatures</button></a>
         </div>
-
+    </div>
         <!-- -------fish---------- -->
-        <div class="card-container">
-            <div class="fish-container" v-show="clicked === 'fish'">
-                <h2 id="fish-top">fish available: </h2>
-                <fish-card
-                    v-for="fish in fish"
-                    :key="fish.id_num"
-                    :fish="fish"
-                    :current-user="currentUser"
-                    :csrf_token="csrf_token"
-                    @after-catch="loadCurrentUser"
-                ></fish-card>
-            </div>
+    <div class="card-container">
+        <div class="fish-container" v-show="clicked === 'fish'">
+            <h2 id="fish-top">fish available: </h2>
+            <fish-card
+                v-for="fish in fish"
+                :key="fish.id_num"
+                :fish="fish"
+                :current-user="currentUser"
+                :csrf_token="csrf_token"
+                @after-catch="loadCurrentUser"
+            ></fish-card>
+        </div>
 
-            <!-- --------bugs---------- -->
+        <!-- --------bugs---------- -->
 
-            <div class="bugs-container" v-show="clicked === 'bugs'">
-                <h2 id="bug-top">bugs available: </h2>
-                <bug-card
-                    v-for="bug in bugs"
-                    :key="bug.id_num"
-                    :bug="bug"
-                    :current-user="currentUser"
-                    :csrf_token="csrf_token"
-                    @after-catch="loadCurrentUser"
-                ></bug-card>
-            </div>
+        <div class="bugs-container" v-show="clicked === 'bugs'">
+            <h2 id="bug-top">bugs available: </h2>
+            <bug-card
+                v-for="bug in bugs"
+                :key="bug.id_num"
+                :bug="bug"
+                :current-user="currentUser"
+                :csrf_token="csrf_token"
+                @after-catch="loadCurrentUser"
+            ></bug-card>
+        </div>
 
-            <!-- --------sea creatures------ -->
+        <!-- --------sea creatures------ -->
 
-            <div class="sea-container" v-show="clicked === 'sea'">
-                <h2 id="sea-top">sea creatures available: </h2>
-                <sea-card
-                    v-for="sea in seaCreatures"
-                    :key="sea.id_num"
-                    :sea="sea"
-                    :current-user="currentUser"
-                    :csrf_token="csrf_token"
-                    @after-catch="loadCurrentUser"
-                ></sea-card>
-            </div>
+        <div class="sea-container" v-show="clicked === 'sea'">
+            <h2 id="sea-top">sea creatures available: </h2>
+            <sea-card
+                v-for="sea in seaCreatures"
+                :key="sea.id_num"
+                :sea="sea"
+                :current-user="currentUser"
+                :csrf_token="csrf_token"
+                @after-catch="loadCurrentUser"
+            ></sea-card>
         </div>
     </div>
+    
 {% endif %}
 {% endblock %}

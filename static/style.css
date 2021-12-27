@@ -13,11 +13,15 @@ body {
 }
 
 main {
-    min-width: 100%;
-    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
     margin: 0;
-    padding: 0px 0px 10px 0px;
+    /* padding: 0px 0px 10px 0px; */
     /* background-color: rgb(255, 255, 255, 0.8); */
+    
+    /* overflow:hidden; */
 }
 
 h1 {
@@ -28,6 +32,7 @@ h1 {
 
 h2 {
     text-align: center;
+    /* padding-top: 0.5em; */
 }
 
 h1 a {
@@ -36,7 +41,7 @@ h1 a {
     /* -webkit-text-stroke: .1px rgb(250, 250, 250); */
 }
 label {
-    font-size: 20px;
+    padding-bottom: 2em;
 }
 
 ul, .helptext {
@@ -46,46 +51,81 @@ img {
     height: 70px;
 }
 
+button {
+    background-color: white;
+    margin: 0.5em 0;
+    width: 100%;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+}
+
+select, input {
+    margin: 0.5em 0;
+    width: 100%;
+    height: 40px;
+    padding: 0 0.5em;
+    border-radius: 10px;
+    border: none;
+}
+
+input {
+    padding: 5px;
+}
+
+
 .link-container {
     text-align: center;
+    padding-bottom: 1em;
 }
 
 .option-container {
-    padding-left: 2em;
-    padding-top: 1em;
+    /* padding-left: 2em;
+    padding-top: 1em; */
+    margin: 10px;
+    padding-left: 1em;
+}
+.option-container select {
+    width: auto;
 }
 
 .header {
     text-align: center;
+    flex-grow: 0;
 }
 
 .nav-container {
-    position: sticky;
+    /* position: sticky; */
+    flex-grow: 0;
 }
 
 .button-container {
     display: flex;
     margin: 10px 10px 0px 10px;
     top: 0;
-    /* position: sticky;   */
+    position: sticky;  
 }
 
 .fish-button, .bug-button, .sea-button {
     min-width: 115.5px;
     height: 60px;
     box-shadow: none;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
+    border-radius: 15px 15px 0px 0px;
+    /* border-top-left-radius: 15px;
+    border-top-right-radius: 15px; */
     border: none;
     font-size: 20px;
+    margin: 0;
 }
 
 .fish-container, .bugs-container, .sea-container {
-    margin: 0px 10px 0px 10px;
-    padding: 10px;
+    margin: 0px 10px;
+    padding: 0 10px;
     /* height: 400px; */
-    height: 100vh;
+    height: 100%;
+    /* width: 100%; */
     overflow: scroll;
+    border-radius: 0 0 15px 15px;
 }
 
 .sea-button {
@@ -115,6 +155,10 @@ img {
 .fish-2, .bug-2, .sea-2 {
     text-align: left;
     padding-left: 2em;
+
+    /* LIZ! this should make things nice and even */
+
+    width: 150px;
 }
 
 .login, .signup {
@@ -149,37 +193,157 @@ img {
 
 /* ----- friends page -------- */
 .friend-container {
-    padding: 0 1em 1em 1em;
+    margin: 0 1em 1em 1em;
+    overflow: scroll;
+    /* padding: 0 1em 1em 1em; */
 }
 
 .friend-options-container {
     margin-top: 1em;
 }
 
-/* .unfriend-btn {
-    
-} */
-
-.fish-list, .bug-list, .sea-list {
-    padding: 1em 0 1em 0;
+.friend-request {
+    padding: 1em;
+    text-align: center;
 }
 
-.compare-fish, .compare-bugs, .compare-sea {
+.fish-list, .bug-list, .sea-list, .compare-names-container {
+    padding: 1em;
+    margin: 10px 0;
+    border-radius: 10px;
+}
+
+.compare-fish, .compare-bugs, .compare-sea, .compare-names {
     display: flex;
 }
 
-.my-list, .compare-list {
+.my-list, .compare-list, .my-name, .friend-name {
     width: 50%;
-    /* padding: 0.5em; */
 }
 
-.my-list {
+.friend-name {
+    overflow-wrap: break-word;
+}
+
+
+.my-list, .my-name {
     text-align: right;
     padding-right: 0.5em;
     border-right: 1px solid gray;
 }
 
-.compare-list {
+.compare-list, .friend-name {
     padding-left: 0.5em;
 }
+.my-name, .friend-name {
+    text-align: center;
+}
 
+.unfriend-btn {
+    margin-left: 2em;
+    width: 100px;
+}
+.add-friend-input {
+    /* border: 1px solid red; */
+    padding-right: 10px;
+}
+
+/* #app {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+} */
+
+#app {
+    flex-grow: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+
+.card-container {
+    flex-grow: 1;
+    overflow: hidden;
+    
+}
+
+/* .fish-container div h2 {
+    margin-top: 2em;
+} */
+
+
+
+
+
+/* -----------tablet------------------ */
+@media (min-width: 640px) {
+    /* button {
+        width: 400px;
+    } */
+
+    .fish-container, .bugs-container, .sea-container {
+        border-radius: 0 15px 15px 15px;
+    }
+    
+    .fish-card, .bug-card, .sea-card {
+        /* width: 50%; */
+        flex-grow: 1;
+    }
+    /* .card-container {
+        display: flex;
+        flex-wrap: wrap; 
+        height:100%;
+    } */
+
+    /* .fish-container, .bugs-container, .sea-container {
+        
+        background-color: red;
+        height: 100%;
+        
+    } */
+
+    .fish-container div:first-child, .bugs-container div:first-child, .sea-container div:first-child {
+        display: flex;
+        flex-wrap: wrap; 
+    }
+
+    .fish-container div h2, .bugs-container div h2, .sea-container div h2 {
+        min-width: 100%;
+    }
+
+    .fish-icon, .bug-icon, .sea-icon {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+
+
+
+    /* 
+    ================================
+
+    dear liz,
+
+    way up ^^^ at ".fish-2, .bug-2, .sea-2" there's sometihng that makes this all work nicely
+
+    i love you!
+
+    xoxo
+
+    peepee
+    
+    ================================
+
+    */
+
+        
+    
+    
+}
+
+/* -----------desktop------------------ */
+@media (min-width: 1100px) {
+
+}
