@@ -236,7 +236,7 @@ Vue.component('friend-card', {
         loadFriendInfo: function(friendId) {
             axios({
                 method: 'get',
-                url: `http://127.0.0.1:8000/api/v1/users/${friendId}`
+                url: `/api/v1/users/${friendId}`
             }).then(response => {
                 this.friendInfo = response.data
             })
